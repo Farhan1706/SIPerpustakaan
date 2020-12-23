@@ -1,0 +1,26 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background: #f6f7fb;
+}
+
+.clock {
+    color: #000000;
+    font-size: 20px;
+    letter-spacing: 7px;
+}
+
+
+.tabledit-edit-button{
+    color: #000000;
+}
+
+::-webkit-scrollbar{
+    height: 2px;
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background: linear-gradient(#fff, #5e72e4);
+    border-radius: 6px;
+}
