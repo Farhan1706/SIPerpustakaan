@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+// error_reporting(0);
 session_start();
 if (isset($_SESSION['email'])) {
   $email = $_SESSION['email'];
@@ -7,13 +7,14 @@ if (isset($_SESSION['email'])) {
 if(isset($_SESSION['rfid'])){
  $rfid = $_SESSION['rfid'];
 };
+// include '../../../database/database.php';
 include '../../../database/koneksi.php';
 
 // require_once ('../konten/CreateDB.php');
 require_once ('../konten/component.php');
 
 // $db = new CreateDb("Productdb", "Producttb");
-$database = new mysqli("localhost","root","","productdb");
+// $database = new mysqli("localhost","root","","productdb");
 
 ?>
 <!DOCTYPE html>
@@ -55,49 +56,74 @@ $database = new mysqli("localhost","root","","productdb");
               <div class="col">
                 <div class="shopping-cart">
                   <?php
-                      if (isset($_SESSION['cart'])){
-                          $product_id = array_column($_SESSION['cart'], 'product_id');
-                          $count = count($_SESSION['cart']);
-                          if($count>0){
-                            echo "
-                            <div class='col-12 grid-margin stretch-card'>
-                                    <div class='row col'>
-                                      <a class='btn btn-primary btn-icon-text shadow' href='#'>
-                                          Ajukan Peminjaman
-                                          <i class='mdi mdi-check btn-icon-prepend'></i>
+                    // Kueri ID Peminjaman
+                    $sql_cari = "SELECT id_sk FROM data_transaksi ORDER BY id_sk DESC";
+                    $result = $koneksi -> query($sql_cari);
+                    $row = $result -> fetch_array(MYSQLI_BOTH);
+                    $kode = $row['id_sk'];
+                    $urut = substr($kode, 1, 3);
+                    $remodel = (int) $urut + 1;
+
+                    if (strlen($remodel) == 1){
+                        $format = "S"."00".$remodel;
+                            }else if (strlen($remodel) == 2){
+                            $format = "S"."0".$remodel;
+                                    }else (strlen($remodel) == 3){
+                                    $format = "S".$remodel
+                                        }
+                    ?>
+                    <?php
+                        if (isset($_SESSION['cart'])){
+                          echo "
+                              <div class='col-12 grid-margin stretch-card'>
+                                      <div class='row col'>
+                                      <a class='btn btn-primary btn-icon-text shadow' href='./cart_buku?action=cart_pinjam'>
+                                            Ajukan Peminjaman
+                                            <i class='mdi mdi-check btn-icon-prepend'></i>
                                       </a>
-                                    </div>
-                            </div>
-                            ";
-                            $sql = "SELECT * FROM producttb";
-                            $result = $database->query($sql);
-                            while ($row = mysqli_fetch_assoc($result)){
-                                foreach ($product_id as $id){
-                                    if ($row['id'] == $id){
-                                        cartElement($row['product_image'], $row['product_name'],$row['product_price'], $row['id']);
-                                        
-                                    }
-                                }
+                                      </div>
+                              </div>
+                              ";
+                            $product_id = array_column($_SESSION['cart'], 'product_id');
+                            $count = count($_SESSION['cart']);
+                            if($count>0){
+                              $sql = "SELECT * FROM data_buku";
+                              $result = $koneksi->query($sql);
+                              while ($row = mysqli_fetch_assoc($result)){
+                                  foreach ($product_id as $id){
+                                      if ($row['id_buku'] == $id){
+                                          cartElement($row['item_image'], $row['judul_buku'],$row['pengarang'], $row['id_buku']);
+                                      }
+                                  }
+                              }
+                            }else{
+                              echo "
+                              <div class='card col'>
+                                <div class='card-body'>
+                                  <blockquote class='blockquote blockquote-primary'>
+                                    <p>Belum ada Buku yang Ditambahkan Menuju Keranjang!</p>
+                                    <footer class='blockquote-footer'>Anda Dapat Menambahkan Buku pada <a style='text-decoration:none' href='../Dashboard'>Halaman Utama Peminjaman <i class='mdi mdi-home'></i> </a></footer>
+                                  </blockquote>
+                                </div>
+                              </div>
+                              ";
                             }
-                          }else{
+
+                            
+                        }else{
                             echo "
                             <div class='card col'>
-                              <div class='card-body'>
-                                <blockquote class='blockquote blockquote-primary'>
-                                  <p>Belum ada Buku yang Ditambahkan Menuju Keranjang!</p>
-                                  <footer class='blockquote-footer'>Anda Dapat Menambahkan Buku pada <a style='text-decoration:none' href='../Dashboard'>Halaman Utama Peminjaman <i class='mdi mdi-home'></i> </a></footer>
-                                </blockquote>
+                                <div class='card-body'>
+                                  <blockquote class='blockquote blockquote-primary'>
+                                    <p>Belum ada Buku yang Ditambahkan Menuju Keranjang!</p>
+                                    <footer class='blockquote-footer'>Anda Dapat Menambahkan Buku pada <a style='text-decoration:none' href='../Dashboard'>Halaman Utama Peminjaman <i class='mdi mdi-home'></i> </a></footer>
+                                  </blockquote>
+                                </div>
                               </div>
-                            </div>
                             ";
-                          }
+                        }
 
-                          
-                      }else{
-                          echo "<h5>Cart is Empty</h5>";
-                      }
-
-                  ?>
+                    ?>
                 </div>
                 <!-- END CART -->
               </div>
@@ -164,12 +190,38 @@ if (isset($_GET['action'])){
   }
 }
 
-if (isset($_POST['cart_pinjam'])){
+if (isset($_GET['action'])){
   if ($_GET['action'] == 'cart_pinjam'){
-      foreach ($_SESSION['cart'] as $value){
-          $stmt = $database->prepare("INSERT INTO masuk VALUES ('','".$value[product_name]."')");
-          $stmt->execute();
-      }
+    $sql = "SELECT * FROM data_buku";
+    $result = $koneksi->query($sql);
+    while ($row = mysqli_fetch_assoc($result)){
+        foreach ($product_id as $id){
+            if ($row['id_buku'] == $id){
+              $stmt = $koneksi->prepare("INSERT INTO data_transaksi (id_sk,id_buku,id_anggota,status) VALUES (?,?,?,?)");
+              $stmt->bind_param("ssss", $kode, $buku, $anggota, $status);
+              
+              $kode    = $format;
+              $buku    = $row['id_buku'];
+              $anggota = $akun['id_anggota'];
+              $status  = 'PES';
+              $stmt->execute();
+              $stmt->close();
+            }
+        }
+    }
+    unset($_SESSION['cart']);
+    echo "
+    <script>
+    Swal.fire({
+      icon: 'success',
+      title: 'Peminjaman Telah Diajukan!',
+      showConfirmButton: false,
+      timer: 2000
+      }).then((result) =>{
+          window.location ='./cart_buku';
+      })
+    </script>
+    ";
   }
 }
 ?>

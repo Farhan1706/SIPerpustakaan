@@ -10,20 +10,21 @@
             </li>
             <li class="nav-item dropdown mr-1">
               <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
-                <i class="mdi mdi-calendar mx-0"></i>
+                <i class="mdi mdi-package-down mx-0"></i>
                 <span class="count bg-info">69</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-                <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
-                <a class="dropdown-item preview-item">
+                <p class="mb-0 font-weight-normal float-left dropdown-header">Permintaan Peminjaman</p>
+                <a class="dropdown-item preview-item" href="/sipus/views/Admin/Transaksi/req-buku">
                   <div class="preview-thumbnail">
-                      <img src="images/faces/face69.jpg" alt="image" class="profile-pic">
+                    <div class="preview-icon bg-success">
+                      <i class="mdi mdi-information mx-0"></i>
+                    </div>
                   </div>
-                  <div class="preview-item-content flex-grow">
-                    <h6 class="preview-subject ellipsis font-weight-normal">Jeng-Jeng
-                    </h6>
-                    <p class="font-weight-light small-text text-muted mb-0">
-                      Giovanna gaiiih
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal">23 Menunggu Persetujuan</h6>
+                    <p class="font-weight-light small-text mb-0 text-muted">
+                      Lihat Lebih Lanjut
                     </p>
                   </div>
                 </a>
@@ -105,11 +106,11 @@
                 </span>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                <a class="dropdown-item" href="../Profile">
+                <a class="dropdown-item" href="/sipus/views/Admin//Profile">
                   <i class="mdi mdi-settings text-primary"></i>
                   Settings
                 </a>
-                <a class="dropdown-item" href="../destroy.php">
+                <a class="dropdown-item" href="/sipus/views/Admin/destroy.php">
                   <i class="mdi mdi-logout text-primary"></i>
                   Logout
                 </a>

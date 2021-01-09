@@ -5,7 +5,7 @@
           <span></span>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../Dashboard">
+          <a class="nav-link" href="/sipus/views/Admin/Dashboard">
             <i class="mdi mdi-view-quilt menu-icon"></i>
             <span class="menu-title">Dashboard</span>
             <!-- <div class="badge badge-info badge-pill"></div> -->
@@ -23,13 +23,13 @@
           </a>
           <div class="collapse" id="pendataan" style="">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="../PendataanBuku/data_buku">Data Buku</a></li>
-              <li class="nav-item"> <a class="nav-link" href="../PendataanAnggota/data_anggota">Data Anggota</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/sipus/views/Admin/PendataanBuku/data_buku">Data Buku</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/sipus/views/Admin/PendataanAnggota/data_anggota">Data Anggota</a></li>
             </ul>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../Transaksi">
+          <a class="nav-link" href="/sipus/views/Admin/Transaksi">
             <i class="mdi mdi-rotate-3d menu-icon"></i>
             <span class="menu-title">Transaksi</span>
             <!-- <div class="badge badge-info badge-pill"></div> -->
@@ -43,10 +43,21 @@
           </a>
           <div class="collapse" id="cttdata" style="">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="../Pencatatan/peminjaman">Peminjaman</a></li>
-              <li class="nav-item"> <a class="nav-link" href="../Pencatatan/pengembalian">Pengembalian</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/sipus/views/Admin/Pencatatan/peminjaman">Peminjaman</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/sipus/views/Admin/Pencatatan/pengembalian">Pengembalian</a></li>
             </ul>
           </div>
+        </li>
+        <li class="nav-item sidebar-category">
+          <p>Pengaturan</p>
+          <span></span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../Pengaturan/">
+            <i class="mdi mdi-settings menu-icon"></i>
+            <span class="menu-title">Sistem</span>
+            <!-- <div class="badge badge-info badge-pill"></div> -->
+          </a>
         </li>
       </ul>
     </nav>

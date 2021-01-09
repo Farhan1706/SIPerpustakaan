@@ -84,7 +84,12 @@ include '../../../database/koneksi.php';
                                 <td><?php  $tgl = $data['tgl_kembali']; echo date("d/M/Y", strtotime($tgl))?></td>
                                 <td>
                                 <?php
-                                  $u_denda = 1000;
+                                $stmt = $koneksi->prepare("SELECT value FROM settings where id=1");
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                                $row = $result->fetch_assoc();
+                                
+                                  $u_denda = $row['value'];
 
                                   $tgl1 = date("Y-m-d");
                                   $tgl2 = $data['tgl_kembali'];

@@ -8,16 +8,10 @@ if(isset($_SESSION['rfid'])){
  $rfid = $_SESSION['rfid'];
 };
 include '../../../database/koneksi.php';
+// include '../../../database/database.php';
 
-?>
-<?php
-// require_once ('../konten/CreateDB.php');
 require_once ('../konten/component.php');
 
-
-// create instance of Createdb class
-// $database = new CreateDb("Productdb", "Producttb");
-$database = new mysqli("localhost","root","","productdb");
 
 if (isset($_POST['add'])){
   /// print_r($_POST['product_id']);
@@ -55,7 +49,7 @@ if (isset($_POST['add'])){
 
       // Create new session variable
       $_SESSION['cart'][0] = $item_array;
-      print_r($_SESSION['cart']);
+      // print_r($_SESSION['cart']);
   }
 }
 
@@ -96,26 +90,100 @@ if (isset($_POST['add'])){
     <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+        <!-- Search Start -->
+        <div class="card">
+          <ul class="navbar-nav mr-lg-2">
+            <li class="nav-item nav-search d-none d-lg-block">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Cari Buku..." aria-label="Recipient's username">
+                      <div class="input-group-append">
+                        <button class="btn btn-sm btn-primary" type="button">Search</button>
+                      </div>
+                    </div>
+            </li>
+          </ul>
+        </div>
+        <!-- Search END -->
             <div class="row ml-1 mr-1">
               <div class="row text-center py-5">
                     <?php
-                        $sql = "SELECT * FROM producttb";
-                        $result = $database->query($sql);
-                        while ($row = mysqli_fetch_assoc($result)){
-                            component($row['product_name'], $row['product_price'], $row['product_image'], $row['id']);
+                        // Numbering Untuk Pagination
+                        // Cek apakah terdapat data pada page URL
+                        $page = (isset($_GET['page'])) ? $_GET['page'] : 1;
+
+                        $limit = 12; // Jumlah data per halamanya
+
+                        // Buat query untuk menampilkan data ke berapa yang akan ditampilkan pada tabel yang ada di database
+                        $limit_start = ($page - 1) * $limit;
+
+                        // Buat query untuk menampilkan data buku sesuai limit yang ditentukan                        
+                        $sql = "SELECT * FROM data_buku LIMIT $limit_start,$limit";
+                        $stmt = $koneksi->prepare($sql);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        while ($row = $result->fetch_assoc()){
+                            component($row['judul_buku'], $row['item_image'], $row['id_buku']);
                         }
                     ?>
               </div>
-                        
                             <div class="card-body">
                             <nav>
                                 <ul class="pagination d-flex flex-wrap justify-content-center pagination-primary">
-                                <li class="page-item"><a class="page-link" href="#"><i class="mdi mdi-chevron-left"></i></a></li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                <li class="page-item"><a class="page-link" href="#"><i class="mdi mdi-chevron-right"></i></a></li>
+                            <!-- Numbering Untuk Pagination Button -->
+                            <?php 
+                            if ($page == 1) { // Jika page adalah pake ke 1, maka disable link PREV
+                            ?>
+                                <li class="page-item" disabled><a class="page-link" href="#">First</a></li>
+                                <li class="page-item" disabled><a class="page-link" href="#"><i class="mdi mdi-chevron-left"></i></a></li>
+                            <?php 
+                            }else{ //Jika buka page ke 1
+                              $link_prev = ($page>1) ? $page - 1 : 1;
+                            ?>
+                              <li class="page-item"><a class="page-link" href="index.php?page=1">First</a></li>
+                              <li class="page-item"><a class="page-link" href="index.php?page<?php echo $link_prev; ?>"><i class="mdi mdi-chevron-left"></i></a></li>
+                            <?php 
+                            }
+                            ?>
+                                
+                                <!-- Link Number -->
+                                <?php
+                                // Buat query untuk menghitung semua jumlah data
+                                $sql2 = $koneksi->prepare("SELECT COUNT(*) AS jumlah FROM data_buku");
+                                $sql2->execute();
+                                $result = $sql2->get_result();
+                                $get_jumlah = $result->fetch_assoc();
+
+                                $jumlah_page = ceil($get_jumlah['jumlah'] / $limit);//Hitung Jumlah halaman
+                                $jumlah_number = 3; //Tentukan jumlah link number sebelum dan sesudah page yang aktif
+                                $start_number = ($page > $jumlah_number) ? $page - $jumlah_number : 1; // Untuk awal link member
+                                $end_number = ($page < ($jumlah_page - $jumlah_number)) ? $page + $jumlah_number : $jumlah_page; // Untuk akhir link number
+                                // Perulangan Untuk Button
+                                for ($i = $start_number; $i <= $end_number; $i++){
+                                  $link_active = ($page == $i) ? 'active' : '';
+                                ?>
+                                  <li class="page-item <?php echo $link_active; ?>"> <a class="page-link" href="index.php?page=<?php echo $i; ?>"> <?php echo $i; ?></a></li>
+                                <?php 
+                                }
+                                ?>
+
+                                <!-- LINK NEXT AND LAST -->
+                                <?php
+                                // Jika page sama dengan jumlah page, maka disable link NEXT nya
+                                // Artinya page tersebut adalah page terakhir
+                                if ($page == $jumlah_page) { // Jika page terakhir
+                                ?>
+                                    <li class="page-item"><a class="page-link" href="#"><i class="mdi mdi-chevron-right"></i></a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Last</a></li>
+                                <?php
+                                } else { // Jika bukan page terakhir
+                                    $link_next = ($page < $jumlah_page) ? $page + 1 : $jumlah_page;
+                                ?>
+                                    <li class="page-item"><a class="page-link" href="index.php?page=<?php echo $link_next ?>"><i class="mdi mdi-chevron-right"></i></a></li>
+                                    <li class="page-item"><a class="page-link" href="index.php?page=<?php echo $jumlah_page ?>">Last</a></li>
+                                <?php
+                                }
+                                ?>
                                 </ul>
                             </nav>
                             </div>
@@ -173,5 +241,23 @@ if(in_array($_POST['product_id'], $item_array_id)){
       }
     })
   </script>";
+}
+
+if (isset($_GET['action'])){
+  if ($_GET['action'] == 'proses'){
+    unset($_SESSION['cart']);
+    echo "
+    <script>
+    Swal.fire({
+      icon: 'success',
+      title: 'Peminjaman Telah Diajukan!',
+      showConfirmButton: false,
+      timer: 2000
+      }).then((result) =>{
+          window.location ='../Dashboard';
+      })
+    </script>
+    ";
+  }
 }
 ?>

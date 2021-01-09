@@ -8,6 +8,8 @@ if(isset($_SESSION['rfid'])){
 };
 include '../../../database/koneksi.php';
 
+$today = date("Y-m-d");
+
 ?>
 
 <?php
@@ -15,7 +17,11 @@ include '../../../database/koneksi.php';
 	while ($data= $sql->fetch_assoc()) {
 	
 		$buku=$data['buku'];
-	}
+  }
+
+  $kueri = $koneksi->query("SELECT COUNT(id_buku) FROM log_buku WHERE tanggal_pembuatan LIKE '%".$today."%'");
+  $result = $kueri->fetch_row();
+  $log_buku = $result[0];
 ?>
 
 <?php
@@ -23,7 +29,11 @@ include '../../../database/koneksi.php';
 	while ($data= $sql->fetch_assoc()) {
 	
 		$agt=$data['agt'];
-	}
+  }
+  
+  $kueri = $koneksi->query("SELECT COUNT(id_anggota) FROM log_akun WHERE tanggal_pembuatan LIKE '%".$today."%'");
+  $result = $kueri->fetch_row();
+  $log_akun = $result[0];
 ?>
 
 <?php
@@ -31,7 +41,11 @@ include '../../../database/koneksi.php';
 	while ($data= $sql->fetch_assoc()) {
 	
 		$pin=$data['pin'];
-	}
+  }
+
+  $kueri = $koneksi->query("SELECT COUNT(id_buku) FROM log_pinjam WHERE tgl_pinjam LIKE '%".$today."%'");
+  $result = $kueri->fetch_row();
+  $log_pinjam = $result[0];
 ?>
 
 <?php
@@ -80,34 +94,37 @@ include '../../../database/koneksi.php';
           <div class="card mb-2">
             <div class="alert alert-fill-primary" role="alert">
               <i class="mdi mdi-alert-circle" data-toggle="tooltip" data-placement="top" title data-original-title="Pengumuman Terkini!"></i>
-              <div class="dropdown float-right">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuIconButton6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="mdi mdi-settings"></i>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton6" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 46px, 0px);">
-                  <h6 class="dropdown-header">Tampilkan Data:</h6>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Hari Ini</a>
-                  <a class="dropdown-item" href="#">Minggu Ini</a>
-                  <a class="dropdown-item" href="#">Bulan Ini</a>
-                </div>
-                </div>
+              <marquee>
+              <?php
+              $stmt = $koneksi->prepare("SELECT * FROM pengumuman");
+              $stmt->execute();
+              $hp = $stmt->get_result();
+              while($p = $hp->fetch_assoc()){
+                echo "<div class='badge badge-pill badge-primary '><i class='mdi mdi-bullhorn'></i>".$p['keterangan']."</div>";
+              }
+              ?>
+              </marquee>
             </div>
             <div class="row ml-1 mr-1">
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card bg-facebook d-flex align-items-center">
                   <div class="card-body py-5">
                     <div class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">
-                      <i class="mdi mdi-book text-white icon-lg"></i>
+                      <?php 
+                        $out = strlen($pin) > 4 ? substr($pin,0,4)."..." : $pin;
+                        $total_peminjaman = $out;
+                        echo "<h2 class='text-white icon-lg'>$total_peminjaman</h2>";
+                        ?>
+                        <i class="mdi mdi-book text-white icon-lg"></i>
+
                       <div class="ml-3 ml-md-0 ml-xl-3">
                         <h5 class="text-white font-weight-bold">Peminjaman</h5>
                         <p class="mt-2 text-white card-text">
                         <?php
-                        $total_peminjaman = $pin;
-                        if ($total_peminjaman==0){
-                          echo("Tidak Ada Peminjaman");
+                        if ($log_pinjam==0){
+                          echo("Tidak Ada Peminjaman Hari Ini");
                         }else{
-                          echo("Total ".$total_peminjaman." Peminjaman");
+                          echo("".$log_pinjam." Peminjaman Baru Hari Ini!");
                         }
                         ?>
                         </p>
@@ -120,15 +137,20 @@ include '../../../database/koneksi.php';
                 <div class="card bg-linkedin d-flex align-items-center">
                   <div class="card-body py-5">
                     <div class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">
-                      <i class="mdi mdi-account-plus text-white icon-lg"></i>
+                      <?php
+                        $out = strlen($agt) > 4 ? substr($agt,0,4)."..." : $agt;
+                        $anggota = $out;
+                        echo "<h2 class='text-white icon-lg'>$anggota</h2>";
+                        ?>
+                        <i class="mdi mdi-account-plus text-white icon-lg"></i> 
                       <div class="ml-3 ml-md-0 ml-xl-3">
                         <h5 class="text-white font-weight-bold">Anggota</h5>
                         <p class="mt-2 text-white card-text">
-                        <?php 
-                        if ($agt==0){
-                          echo("Tidak Ada Anggota Baru");
+                        <?php
+                        if ($log_akun==0){
+                          echo("Tidak Ada Anggota Baru Hari Ini!");
                         }else{
-                          echo("Total ".$agt." Anggota");
+                          echo("".$log_akun." Anggota Baru!");
                         }
                         ?>
                         </p>
@@ -141,15 +163,19 @@ include '../../../database/koneksi.php';
                 <div class="card bg-twitter d-flex align-items-center">
                   <div class="card-body py-5">
                     <div class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">
-                      <i class="mdi mdi-book-plus text-white icon-lg"></i>
+                      <?php 
+                        $out = strlen($buku) > 4 ? substr($buku,0,4)."..." : $buku;
+                        echo "<h2 class='text-white icon-lg'>$buku</h2>";
+                        ?>
+                        <i class="mdi mdi-book-plus text-white icon-lg"></i>
                       <div class="ml-3 ml-md-0 ml-xl-3">
                         <h5 class="text-white font-weight-bold">Buku</h5>
                         <p class="mt-2 text-white card-text">
                         <?php 
-                        if ($buku==0){
+                        if ($log_buku==0){
                           echo("Tidak Ada Buku Baru");
                         }else{
-                          echo("".$buku." Buku Tersedia");
+                          echo("".$log_buku." Buku Baru Hari Ini!");
                         }
                         ?>
                         </p>
@@ -163,10 +189,10 @@ include '../../../database/koneksi.php';
           </div>
           <div class="card px-3">
 								<div class="card-body">
-									<h4 class="card-title">Agenda Hari Ini</h4>
+									<h4 class="card-title">Pengumuman</h4>
 									<div class="add-items d-flex">
-										<input type="text" class="form-control todo-list-input" placeholder="Tambahkan Agenda?">
-										<button class="add btn btn-primary font-weight-bold todo-list-add-btn">Add</button>
+										<input type="text" class="form-control todo-list-input" placeholder="Tambahkan Pengumuman?">
+										<button class="btn btn-primary font-weight-bold todo-list-add-btn">Add</button>
 									</div>
 									<div class="list-wrapper">
 										<ul class="d-flex flex-column-reverse todo-list">
@@ -234,7 +260,7 @@ include '../../../database/koneksi.php';
 
       if (item != null) {
         $.ajax({
-          url: "proses_agenda.php",
+          url: "proses_pengumuman.php",
           type: "POST",
           data: {
             item:item	
@@ -254,7 +280,7 @@ include '../../../database/koneksi.php';
     todoListItem.on('click', '.remove', function() {
 		  var id = $(this).attr('id');
 		  $.ajax({
-			  url: "hapus_agenda.php",
+			  url: "hapus_pengumuman.php",
 			  type: "POST",
 			  data: {id:id},
 			  cache: false

@@ -8,10 +8,10 @@ if(isset($_SESSION['rfid'])){
 };
 include '../../../database/koneksi.php';
 
-$carikode = mysqli_query($koneksi,"SELECT id_buku FROM data_buku order by id_buku desc");
+$carikode = mysqli_query($koneksi,"SELECT l.id_buku,l.tanggal_pembuatan FROM data_buku d INNER JOIN log_buku l ON l.id_buku=d.id_buku ORDER BY tanggal_pembuatan DESC");
   $datakode = mysqli_fetch_array($carikode);
   $kode = $datakode['id_buku'];
-  $urut = substr($kode, 0, 1);
+  $urut = substr($kode, 3);
   $tambah = (int) $urut + 1;
   $format = $tambah;
 ?>
@@ -24,6 +24,7 @@ $carikode = mysqli_query($koneksi,"SELECT id_buku FROM data_buku order by id_buk
   <title>Perpustakaan</title>
   <!-- AJAX untuk Form -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
   <!-- base:css -->
   <link rel="stylesheet" href="../../../public/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../../../public/css/vendor.bundle.base.css">
@@ -78,7 +79,7 @@ $carikode = mysqli_query($koneksi,"SELECT id_buku FROM data_buku order by id_buk
                   <div class="row">
                     <div class="col-12">
                       <div class="table-responsive table-hover">
-                        <div class="show_buku"></div>
+                        <div class="sb"></div>
                       </div>
                     </div>
                   </div>
@@ -90,84 +91,108 @@ $carikode = mysqli_query($koneksi,"SELECT id_buku FROM data_buku order by id_buk
 <!-- Modal START -->
           <!-- Modal Tambah & Edit Data Start -->
           <div class="modal fade" id="tambahBuku" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="ModalLabel">Tambah Buku</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <form id="upload_form" name="form1" method="POST">
-                            <div>
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                    <div class="modal-body">
+                    <form id="upload_form" action="tb.php"  method="POST" enctype="multipart/form-data">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    	<div class="row">
+                    		<div class="col-sm-6">
                             <div class="input-group">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text bg-primary text-white">ID Buku</span>
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text bg-primary text-white">ID Buku</span>
+                                </div>
+                                <input type="text" class="form-control" id="id_buku" name="id_buku" readonly required>
+                                
                               </div>
-                              <input type="text" class="form-control" id="id_buku" name="id_buku" readonly required>
-                            </div>
-                            </div>
-                            <div class="form-group">
-                            <label for="jenis-buku" class="col-form-label">Jenis Buku</label></br>
-                              <select class="jenis-buku" style="width : 100%">
-                                <option value=""></option>
-                                <option value="ABC">ABECE</option>
-                                <option value="DEF">DeEF</option>
-                                <option value="GHI">GeHaI</option>
-                              </select>
-                            </div>
-                            <div class="form-group row">
-                              <div class="col">
-                                <label>Judul Buku</label>
-                                <div>
-                                <input type="text" id="judul_buku" name="judul_buku" class="form-control" placeholder="Judul Buku..." required>
+                              <div class="form-group">
+                              <label for="jenis-buku" class="col-form-label">Jenis Buku</label></br>
+                                <select class="jenis-buku" style="width : 100%" required>
+                                  <option value=""></option>
+                                  <!-- Kueri untuk jenis buku -->
+                                  <?php 
+                                  $stmt = $koneksi->prepare("SELECT * FROM settings where id!=1");
+                                  $stmt->execute();
+                                  $result = $stmt->get_result();
+                                  while($row = $result->fetch_assoc()){
+                                  ?>
+                                  <option value="<?php echo($row['kode_jenis']); ?>"><?php echo($row['nama_jenis']); ?></option>
+                                  <?php 
+                                  }
+                                  ?>
+                                </select>
+                              </div>
+                              <div class="form-group row">
+                                <div class="col">
+                                  <label>Judul Buku</label>
+                                  <div>
+                                  <input type="text" id="judul_buku" name="judul_buku" class="form-control" placeholder="Judul Buku..." required>
+                                  </div>
+                                </div>
+                                <div class="col">
+                                  <label>Pengarang</label>
+                                  <div>
+                                    <input type="text" id="pengarang" name="pengarang" class="form-control" placeholder="Pengarang..." required>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col">
-                                <label>Pengarang</label>
-                                <div>
-                                  <input type="text" id="pengarang" name="pengarang" class="form-control" placeholder="Pengarang..." required>
+                              <div class="form-group row">
+                                <div class="col">
+                                  <label>Penerbit</label>
+                                  <div>
+                                  <input type="text" id="penerbit" name="penerbit" class="form-control" placeholder="Penerbit..." required>
+                                  </div>
+                                </div>
+                                <div class="col">
+                                  <label>Tahun Terbit</label>
+                                  <div>
+                                  <input type="number" id="th_terbit" name="th_terbit" class="form-control" placeholder="Tahun Terbit..." required>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                            <div class="form-group row">
-                              <div class="col">
-                                <label>Penerbit</label>
-                                <div>
-                                <input type="text" id="penerbit" name="penerbit" class="form-control" placeholder="Penerbit..." required>
+                              <div class="form-group">
+                                <label>Cover Buku</label>
+                                <input type="file" id="cover" name="cover" class="file-upload-default">
+                                <div class="input-group col-xs-12">
+                                  <input type="text" class="form-control file-upload-info" placeholder="Upload Cover Buku" readonly>
+                                  <span class="input-group-append">
+                                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                  </span>
                                 </div>
                               </div>
-                              <div class="col">
-                                <label>Tahun Terbit</label>
-                                <div>
-                                <input type="number" id="th_terbit" name="th_terbit" class="form-control" placeholder="Tahun Terbit..." required>
+                              <div class="form-group">
+                                <label>Salinan Buku</label>
+                                <input type="file" id="salinan" name="salinan" class="file-upload-default">
+                                <div class="input-group col-xs-12">
+                                  <input type="text" class="form-control file-upload-info" placeholder="Upload Salinan Buku Berupa PDF" readonly>
+                                  <span class="input-group-append">
+                                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                  </span>
                                 </div>
                               </div>
-                            </div>
-                            <div class="form-group">
-                              <label>Foto Buku</label>
-                              <input type="file" id="file" name="file" class="file-upload-default">
-                              <div class="input-group col-xs-12">
-                                <input type="text" class="form-control file-upload-info" placeholder="Upload Gambar Buku" readonly>
-                                <span class="input-group-append">
-                                  <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                                </span>
+                          </div>
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                                <label>Sinopsis</label>
+                                <textarea type="text" class="form-control ckeditor" id='sinopsis' name='sinopsis'></textarea>
+                                <!-- <input type="text" id="sinopsis" name="sinopsis" class="form-control" placeholder="Penerbit..." required> -->
                               </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" name="save" class="btn btn-success btn-icon-text" value="Save to database" id="butsave">
-                            <i class="mdi mdi-plus btn-icon-prepend"></i>           
-                            Tambah
-                          </button>
-                          <button type="button" class="btn btn-outline-warning btn-icon-text" data-dismiss="modal">
-                            <i class="mdi mdi-close btn-icon-prepend"></i>                                                    
-                            Tutup
-                        </button>
-                        </div>
+                          </div>
+                        
+                          <div class="form-group">
+                            <button type="submit" name="save" class="btn btn-success btn-icon-text" value="Save to database" id="butsave">
+                                  <i class="mdi mdi-plus btn-icon-prepend"></i>           
+                                  Tambah
+                                </button>
+                            <button type="button" class="btn btn-outline-warning btn-icon-text" data-dismiss="modal">
+                                  <i class="mdi mdi-close btn-icon-prepend"></i>                                                    
+                                  Tutup
+                            </button>
+                          </div>
+                        </form>
                       </div>
-                      </form>
+                      </div>
                     </div>
             </div>
             <!-- Modal Tambah & Edit Data END -->
@@ -186,55 +211,8 @@ $carikode = mysqli_query($koneksi,"SELECT id_buku FROM data_buku order by id_buk
 <!-- Query Proses Buku START -->
   <script type="text/javascript">
   $(document).ready(function(){
-   $('.show_buku').load("show_buku.php");
+   $('.sb').load("show.php");
 
-  });
-
-  $(document).ready(function() {
-    $('#butsave').on('click', function() {
-      $("#butsave").attr("disabled", "disabled");
-
-      var formData = new FormData($('#upload_form')[0]);
-
-      if(id_buku!="" && judul_buku!="" && pengarang!="" && penerbit!="" && th_terbit!=""){
-        formData.append('tax_file', $('input[type=file]')[0].files[0]);
-        $.ajax({
-          url: "tambah_buku.php",
-          type: "POST",
-          data: formData,
-          contentType: false,
-          processData: false,
-          success: function(dataResult){
-            var dataResult = JSON.parse(dataResult);
-            if(dataResult.statusCode==200){
-            Swal.fire({title: 'Buku Berhasil Ditambahkan',text: '',icon: 'success', showConfirmButton: false, timer: 1500
-              }).then((result) => {
-                window.location = './data_buku';
-              })					
-            }
-            else if(dataResult.statusCode==201){
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Terjadi Kesalahan!'
-                })
-            }
-            
-          }
-        });
-      }
-      else{
-        Swal.fire({
-                icon: 'info',
-                title: 'Data Kosong',
-                text: 'Lengkapi Data Terlebih Dahulu!'
-                }).then((result) =>{
-                  if(result.value){
-                    window.location ='./data_buku';
-                  }
-                })
-      }
-    });
   });
   </script>
   <!-- Query Proses Buku END -->
@@ -261,24 +239,25 @@ $carikode = mysqli_query($koneksi,"SELECT id_buku FROM data_buku order by id_buk
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script src="../../../public/js/data-table.js"></script>
   <script src="../../../public/js/file-upload.js"></script>
-  <?php
-  echo("<script>");
-  echo("$(function(){");
-  echo("$('.jenis-buku').select2({");
-  echo("dropdownParent: $('#tambahBuku')");
-  echo("});");
-  echo("$('.jenis-buku').on('change', function() {");
-  echo("var data = ".$format." + $('.jenis-buku option:selected').val() ;");
-  echo("var blank = '';");
-  echo("if($('.jenis-buku option:selected').val()==''){");
-  echo("$('#id_buku').val(blank);");
-  echo("}else{");
-  echo("$('#id_buku').val(data);");
-  echo("}");
-  echo("})");
-  echo("});");
-  echo("</script>");
-  ?>
+
+<?php
+echo("<script>
+$(function(){
+$('.jenis-buku').select2({
+dropdownParent: $('#tambahBuku')
+});
+$('.jenis-buku').on('change', function() {
+var data =  $('.jenis-buku option:selected').val() + ".$format." ;
+var blank = '';
+if($('.jenis-buku option:selected').val()==''){
+$('#id_buku').val(blank);
+}else{
+$('#id_buku').val(data);
+}
+})
+});
+</script>");    
+?>
   <!-- End custom js for this page-->
 </body>
 

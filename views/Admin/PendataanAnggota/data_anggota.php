@@ -149,23 +149,45 @@ $format = "A"."00".$tambah;
                                 <option value="PR">Perempuan</option>
                               </select>
                             </div>
-                            <div class="form-group">
-                            <label for="exampleSelectClass">Kelas</label>
-                              <select class="form-control" id="kelas" name="kelas">
-                                <option value="null"></option>
-                                <?php
-                                // ambil data dari database
-                                $query = "select * from jurusan";
-                                $hasil = mysqli_query($koneksi, $query);
-                                while ($row = mysqli_fetch_array($hasil)) {
-                                ?>
-                                <option value="<?php echo $row['nama']; ?>">
-                                  <?php echo $row['nama_pdk']; ?>
-                                </option>
-                                <?php
-                                }
-                                ?>
-                              </select>
+                            <div class="form-group row">
+                                <div class="col">
+                                  <label>Tingkat</label>
+                                  <select class="form-control" id="tingkat" name="tingkat">
+                                  <option value="null"></option>
+                                  <option value="10">X</option>
+                                  <option value="11">XI</option>
+                                  <option value="12">XII</option>
+                                  <option value="13">XIII</option>
+                                  </select>
+                                </div>
+                                <div class="col">
+                                <label for="exampleSelectClass">Jurusan</label>
+                                <select class="form-control" id="jurusan" name="jurusan">
+                                  <option value="null"></option>
+                                  <?php
+                                  // ambil data dari database
+                                  $query = "select * from jurusan";
+                                  $hasil = mysqli_query($koneksi, $query);
+                                  while ($row = mysqli_fetch_array($hasil)) {
+                                  ?>
+                                  <option value="<?php echo $row['nama']; ?>">
+                                    <?php echo $row['nama_pdk']; ?>
+                                  </option>
+                                  <?php
+                                  }
+                                  ?>
+                                </select>
+                                </div>
+                                <div class="col">
+                                  <label>Kelompok Belajar</label>
+                                  <select class="form-control" id="kelompok" name="kelompok">
+                                  <option value="null"></option>
+                                  <option value="A">A</option>
+                                  <option value="B">B</option>
+                                  <option value="C">C</option>
+                                  <option value="D">D</option>
+                                  </select>
+                                </div>
                             </div>
                             <div class="form-group">
                               <label>No HP:</label>
@@ -218,16 +240,18 @@ $format = "A"."00".$tambah;
   $(document).ready(function() {
     $('#butsave').on('click', function() {
       $("#butsave").attr("disabled", "disabled");
-      var id_anggota  = $('#id_anggota').val();
-      var rfid        = $('#rfid').val();
-      var email       = $('#email').val();
-      var password    = $('#password').val();
-      var nama        = $('#nama').val();
-      var jekel       = $('#jekel').val();
-      var kelas       = $('#kelas').val();
-      var no_hp       = $('#no_hp').val();
-      var level       = $('#level').val();
-      if(id_anggota!="" && email!="" && password!="" && nama!="" && jekel!="" && kelas!="" && no_hp!="" && level!=""){
+      var id_anggota     = $('#id_anggota').val();
+      var rfid           = $('#rfid').val();
+      var email          = $('#email').val();
+      var password       = $('#password').val();
+      var nama           = $('#nama').val();
+      var jekel          = $('#jekel').val();
+      var tingkat        = $('#tingkat').val();
+      var jurusan        = $('#jurusan').val();
+      var kelompok       = $('#kelompok').val();
+      var no_hp          = $('#no_hp').val();
+      var level          = $('#level').val();
+      if(id_anggota!="" && email!="" && password!="" && nama!="" && jekel!="" && no_hp!="" && level!=""){
         $.ajax({
           url: "tambah_anggota.php",
           type: "POST",
@@ -238,7 +262,9 @@ $format = "A"."00".$tambah;
             password: password,
             nama: nama,
             jekel: jekel,
-            kelas: kelas,
+            tingkat: tingkat,
+            jurusan: jurusan,
+            kelompok: kelompok,
             no_hp: no_hp,
             level: level
           },

@@ -2,22 +2,6 @@
 <?php
 include "database/koneksi.php";
 require_once "UIDContainer.php";
-if(!empty($UIDresult)){
-	$rfid = $UIDresult;
-
-    $sql = "SELECT * FROM akun WHERE rfid='$rfid';";
-    $result = $koneksi -> query($sql);
-    $row = $result -> fetch_assoc();
-    if($row['status']=="Admin"){
-        session_start();
-        $_SESSION['email']=$row['email'];
-        header("Location: views/Admin/Anggota/data_anggota.php");
-    }elseif($row['status']=="Siswa"){
-        session_start();
-        $_SESSION['email']=$row['email'];
-        header("Location: views/Siswa");
-    }
-}
 ?>
 </div>
 <!DOCTYPE html>
@@ -61,7 +45,7 @@ if(!empty($UIDresult)){
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email" placeholder="Email">
+						<input class="input100" type="email" name="email" placeholder="Email">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
