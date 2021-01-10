@@ -151,6 +151,10 @@ $carikode = mysqli_query($koneksi,"SELECT l.id_buku,l.tanggal_pembuatan FROM dat
                                 </div>
                               </div>
                               <div class="form-group">
+                                <label>Nomor BIN</label>
+                                <input type="text" id="BIN" name="BIN" class="form-control" placeholder="Nomor Bin..." required>
+                              </div>
+                              <div class="form-group">
                                 <label>Cover Buku</label>
                                 <input type="file" id="cover" name="cover" class="file-upload-default">
                                 <div class="input-group col-xs-12">

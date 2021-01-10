@@ -51,7 +51,7 @@
                 <?php 
                 $sql = "SELECT * FROM akun WHERE email='$email';";
                 $result = $koneksi -> query($sql);
-                $akun = $result -> fetch_assoc();          
+                $akun = $result -> fetch_assoc();
                 echo($akun["nama"]);
                 ?>
                   </b> 

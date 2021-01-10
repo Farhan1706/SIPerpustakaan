@@ -116,7 +116,7 @@ include '../../../database/koneksi.php';
                     <div class="row">
                       <div class="col-12">
                         <div class="table-responsive table-hover">
-                          <table class="table table-striped table-bordered" id="genre">
+                          <table id="genre" class="table table-striped table-bordered">
                               <thead>
                                 <tr>
                                   <th>ID</th>
@@ -220,6 +220,8 @@ include '../../../database/koneksi.php';
   <!-- Custom js for this page-->
   <script src="../../../public/js/dashboard.js"></script>
   <script src="../../../public/js/Custom.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script> 
+  <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <!-- End custom js for this page-->
   <!-- JS untuk Tabledit START -->
@@ -229,7 +231,7 @@ function refresh(){
 }
 
 $(document).ready(function(){
-    
+
 $('#denda').Tabledit({
     url: 'proses-denda.php',
     deleteButton: false,
@@ -262,29 +264,6 @@ $('#denda').Tabledit({
     columns: {
         identifier: [0, 'id'],
         editable: [[2, 'value']]
-    },
-    onDraw: function() {
-        console.log('onDraw()');
-    },
-    onSuccess: function(data, textStatus, jqXHR) {
-        console.log('onSuccess(data, textStatus, jqXHR)');
-        console.log(data);
-        console.log(textStatus);
-        console.log(jqXHR);
-    },
-    onFail: function(jqXHR, textStatus, errorThrown) {
-        console.log('onFail(jqXHR, textStatus, errorThrown)');
-        console.log(jqXHR);
-        console.log(textStatus);
-        console.log(errorThrown);
-    },
-    onAlways: function() {
-        console.log('onAlways()');
-    },
-    onAjax: function(action, serialize) {
-        console.log('onAjax(action, serialize)');
-        console.log(action);
-        console.log(serialize);
     }
     });
  
@@ -293,9 +272,9 @@ $('#denda').Tabledit({
  
 </script>
 <script type="text/javascript">
- 
+$('#genre').DataTable();
+
 $(document).ready(function(){
-    
 $('#genre').Tabledit({
     url: 'proses-genre.php',
     restoreButton : false,
@@ -328,30 +307,6 @@ $('#genre').Tabledit({
     columns: {
         identifier: [0, 'id'],
         editable: [[1, 'kode_jenis'], [2, 'nama_jenis']]
-    },
-    onDraw: function() {
-        console.log('onDraw()');
-    },
-    onSuccess: function(data, textStatus, jqXHR) {
-        refresh();
-        console.log('onSuccess(data, textStatus, jqXHR)');
-        console.log(data);
-        console.log(textStatus);
-        console.log(jqXHR);
-    },
-    onFail: function(jqXHR, textStatus, errorThrown) {
-        console.log('onFail(jqXHR, textStatus, errorThrown)');
-        console.log(jqXHR);
-        console.log(textStatus);
-        console.log(errorThrown);
-    },
-    onAlways: function() {
-        console.log('onAlways()');
-    },
-    onAjax: function(action, serialize) {
-        console.log('onAjax(action, serialize)');
-        console.log(action);
-        console.log(serialize);
     }
     });
  

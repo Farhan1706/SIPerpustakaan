@@ -15,7 +15,7 @@
     <?php
     include '../../../database/koneksi.php';
     $no     = 1;
-    $query  = "SELECT * FROM akun where level='Petugas' or level='Siswa' ORDER BY id_anggota ASC";
+    $query  = "SELECT * FROM akun ORDER BY id_anggota ASC";
     $data   = $koneksi->prepare($query);
     $data->execute();
     $result = $data->get_result();

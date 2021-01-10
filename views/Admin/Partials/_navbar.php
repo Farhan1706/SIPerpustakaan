@@ -5,77 +5,63 @@
             <span class="mdi mdi-menu"></span>
           </button>
           <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item">
-              <h4 id="TampilTanggal" class="mb-0 font-weight-bold d-none d-xl-block"></h4>
-            </li>
-            <li class="nav-item dropdown mr-1">
-              <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
-                <i class="mdi mdi-package-down mx-0"></i>
-                <span class="count bg-info">69</span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-                <p class="mb-0 font-weight-normal float-left dropdown-header">Permintaan Peminjaman</p>
-                <a class="dropdown-item preview-item" href="/sipus/views/Admin/Transaksi/req-buku">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-success">
-                      <i class="mdi mdi-information mx-0"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <h6 class="preview-subject font-weight-normal">23 Menunggu Persetujuan</h6>
-                    <p class="font-weight-light small-text mb-0 text-muted">
-                      Lihat Lebih Lanjut
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </li>
             <li class="nav-item dropdown mr-2">
               <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
                 <i class="mdi mdi-email-open mx-0"></i>
-                <span class="count bg-danger">1</span>
+                <?php
+                $today = date("Y-m-d");
+                $kueri = $koneksi->query("SELECT id_anggota FROM akun WHERE level='NSiswa'");
+                $DSiswa = $kueri->fetch_assoc();
+                $NSiswa = $kueri->num_rows;
+  
+                $notifikasi = "SELECT DATE(l.tanggal_pembuatan) as tanggal FROM log_akun l INNER JOIN akun a ON l.id_anggota=a.id_anggota WHERE l.tanggal_pembuatan LIKE '%".$today."%' AND a.level='NSiswa'";
+                $notifikasi = $koneksi->query($notifikasi);
+                $combine = $notifikasi->num_rows;
+                if($combine>0){
+                  echo("<span class='count bg-danger'>!</span>");
+                }else{
+                  echo("");
+                }
+                ?>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-success">
-                      <i class="mdi mdi-information mx-0"></i>
+                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifikasi</p>
+                
+                  <?php 
+                  if($NSiswa>0){
+                    echo("
+                    <a class='dropdown-item preview-item' href='/sipus/views/Admin/PendataanAnggota/Nonsiswa'>
+                    <div class='preview-thumbnail'>
+                      <div class='preview-icon bg-info'>
+                        <i class='mdi mdi-account-box mx-0'></i>
+                      </div>
                     </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                    <p class="font-weight-light small-text mb-0 text-muted">
-                      Just now
+                    <div class='preview-item-content'>
+                    <h6 class='preview-subject font-weight-normal'>".$NSiswa." Anggota Bukan Siswa</h6>
+                    <p class='font-weight-light small-text mb-0 text-muted'>
+                      Lihat Lebih Lanjut
                     </p>
-                  </div>
-                </a>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-warning">
-                      <i class="mdi mdi-settings mx-0"></i>
                     </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <h6 class="preview-subject font-weight-normal">Settings</h6>
-                    <p class="font-weight-light small-text mb-0 text-muted">
-                      Private message
-                    </p>
-                  </div>
-                </a>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-info">
-                      <i class="mdi mdi-account-box mx-0"></i>
+                    </a>
+                    ");
+                  }else{
+                    echo("
+                    <a class='dropdown-item preview-item'>
+                    <div class='preview-thumbnail'>
+                      <div class='preview-icon bg-info'>
+                        <i class='mdi mdi-account-box mx-0'></i>
+                      </div>
                     </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <h6 class="preview-subject font-weight-normal">New user registration</h6>
-                    <p class="font-weight-light small-text mb-0 text-muted">
-                      2 days ago
+                    <div class='preview-item-content'>
+                    <h6 class='preview-subject font-weight-normal'>Tidak Ada Anggota Baru</h6>
+                    <p class='font-weight-light small-text mb-0 text-muted'>
+                      Belum Ada Anggota Baru
                     </p>
-                  </div>
-                </a>
+                    </div>
+                    </a>
+                    ");
+                  }
+                  ?>
               </div>
             </li>
           </ul>

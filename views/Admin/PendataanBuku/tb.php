@@ -6,6 +6,7 @@ if(isset($_POST['save'])){
   $judul_buku = $_POST['judul_buku'];
   $pengarang  = $_POST['pengarang'];
   $penerbit   = $_POST['penerbit'];
+  $ISBN        = $_POST['ISBN'];
   $th_terbit  = $_POST['th_terbit'];
   $sinopsis   = $_POST['sinopsis'];
   $tanggal    = date("Y-m-d h:i:s");
@@ -60,12 +61,13 @@ if(isset($_POST['save'])){
   if(($_FILES['cover']['name']!=null)&&($_FILES['salinan']['name'])!=null){ 
 
     // queri
-    $sql_buku = "INSERT INTO data_buku (id_buku,judul_buku,pengarang,penerbit,th_terbit,item_image,item_document,sinopsis) VALUES (
+    $sql_buku = "INSERT INTO data_buku (id_buku,judul_buku,pengarang,penerbit,th_terbit,ISBN,item_image,item_document,sinopsis) VALUES (
         '".$id_buku."',
         '".$judul_buku."',
         '".$pengarang."',
         '".$penerbit."',
         '".$th_terbit."',
+        '".$ISBN."',
         '".$itempic."',
         '".$itempdf."',
         '".$sinopsis."')";
@@ -99,12 +101,13 @@ if(isset($_POST['save'])){
   }elseif(($_FILES['cover']['name']!=null)&&($_FILES['salinan']['name'])==null){
 
     // queri
-    $sql_buku = "INSERT INTO data_buku (id_buku,judul_buku,pengarang,penerbit,th_terbit,item_image,sinopsis) VALUES (
+    $sql_buku = "INSERT INTO data_buku (id_buku,judul_buku,pengarang,penerbit,th_terbit,ISBN,item_image,sinopsis) VALUES (
         '".$id_buku."',
         '".$judul_buku."',
         '".$pengarang."',
         '".$penerbit."',
         '".$th_terbit."',
+        '".$ISBN."',
         '".$itempic."',
         '".$sinopsis."')";
     $sql_log = "INSERT INTO log_buku(id_buku,tanggal_pembuatan) VALUES (
@@ -136,12 +139,13 @@ if(isset($_POST['save'])){
   }elseif(($_FILES['salinan']['name']!=null)&&($_FILES['cover']['name'])==null){
 
     // queri
-    $sql_buku = "INSERT INTO data_buku (id_buku,judul_buku,pengarang,penerbit,th_terbit,item_document,sinopsis) VALUES (
+    $sql_buku = "INSERT INTO data_buku (id_buku,judul_buku,pengarang,penerbit,th_terbit,ISBN,item_document,sinopsis) VALUES (
         '".$id_buku."',
         '".$judul_buku."',
         '".$pengarang."',
         '".$penerbit."',
         '".$th_terbit."',
+        '".$ISBN."',
         '".$itempdf."',
         '".$sinopsis."')";
     $sql_log = "INSERT INTO log_buku(id_buku,tanggal_pembuatan) VALUES (
@@ -157,12 +161,13 @@ if(isset($_POST['save'])){
           exit;
             }
   }else{
-    $sql_buku = "INSERT INTO data_buku (id_buku,judul_buku,pengarang,penerbit,th_terbit,sinopsis) VALUES (
+    $sql_buku = "INSERT INTO data_buku (id_buku,judul_buku,pengarang,penerbit,th_terbit,ISBN,sinopsis) VALUES (
         '".$id_buku."',
         '".$judul_buku."',
         '".$pengarang."',
         '".$penerbit."',
         '".$th_terbit."',
+        '".$ISBN."',
         '".$sinopsis."')";
     $sql_log = "INSERT INTO log_buku(id_buku,tanggal_pembuatan) VALUES (
       '".$id_buku."',

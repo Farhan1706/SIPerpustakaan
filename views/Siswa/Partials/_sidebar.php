@@ -5,10 +5,26 @@
           <span></span>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../Dashboard">
+          <a class="nav-link" href="/sipus/views/Siswa/Dashboard">
             <i class="mdi mdi-view-quilt menu-icon"></i>
             <span class="menu-title">Dashboard</span>
             <!-- <div class="badge badge-info badge-pill"></div> -->
+          </a>
+        </li>
+        <li class="nav-item sidebar-category">
+          <p>Informasi Perpustakaan</p>
+          <span></span>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/sipus/views/Siswa/Info/Perpustakaan">
+            <i class="mdi mdi-home menu-icon"></i>
+            <span class="menu-title">Perpustakaan</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sipus/views/Siswa/Info/FAQ">
+            <i class="mdi mdi-help menu-icon"></i>
+            <span class="menu-title">FAQ</span>
           </a>
         </li>
       </ul>

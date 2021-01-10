@@ -6,7 +6,7 @@
             <td>Judul Buku</td>
             <td>Pengarang</td>
             <td>Penerbit</td>
-            <td>Tahun</td>
+            <td>Nomor ISBN</td>
             <td>Kelola</td>
         </tr>
     </thead>
@@ -25,7 +25,7 @@
                     $judul_buku = $row['judul_buku'];
                     $pengarang  = $row['pengarang'];
                     $penerbit   = $row['penerbit'];
-                    $th_terbit  = $row['th_terbit'];
+                    $ISBN  = $row['ISBN'];
         ?>
             <tr>
                 <td><?php echo $no++; ?></td>
@@ -33,7 +33,7 @@
                 <td><?php echo $judul_buku; ?></td>
                 <td><?php echo $pengarang; ?></td>
                 <td><?php echo $penerbit; ?></td>
-                <td><?php echo $th_terbit; ?></td>
+                <td><?php echo $ISBN; ?></td>
                 <td class="text-right">
                     <button id="<?php echo $id; ?>" class="btn btn-light edit_data"> <i class="mdi mdi-eye text-primary"></i> Sunting </button>
                     <button id="<?php echo $id; ?>" class="btn btn-light hapus_data"> <i class="mdi mdi-close text-danger"></i> Hapus </button>

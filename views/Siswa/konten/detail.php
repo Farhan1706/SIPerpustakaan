@@ -107,6 +107,14 @@ $id = $_GET['id'];
                             <?php echo $row1['th_terbit'] ?>
                             </span>
                             </p>
+                            <p class="clearfix">
+                            <span class="float-left">
+                                Nomor ISBN
+                            </span>
+                            <span class="float-right text-muted">
+                            <?php echo $row1['ISBN'] ?>
+                            </span>
+                            </p>
                         </div>
                         <?php 
                         if($row1['item_document']==null){
@@ -120,9 +128,20 @@ $id = $_GET['id'];
                         <div class="d-block d-md-flex justify-content-between mt-4 mt-md-0">
                             <div class="text-center mt-4 mt-md-0">
                             <form action="./detail?id=<?php echo $id; ?>" method="POST">
-                                <button type="submit" name="add" class="btn btn-outline-primary btn-icon-text"><i class="mdi mdi-plus"></i>Tambah Ke Keranjang</button>
-                                <button type="button" class="btn btn-primary btn-icon-text" onclick="goBack()">Kembali <i class="mdi mdi-backup-restore"></i></button>
-                                <input type='hidden' name='product_id' value='<?php echo $id; ?>'>
+                              <?php
+                              if($akun['level']=="NSiswa"){
+                                echo "
+                                <button type='button' class='btn btn-primary btn-icon-text' onclick='goBack()'>Kembali <i class='mdi mdi-backup-restore'></i></button>
+                                ";
+                              }else{
+                                echo "
+                                <button type='submit' name='add' class='btn btn-outline-primary btn-icon-text'><i class='mdi mdi-plus'></i>Tambah Ke Keranjang</button>
+                                <button type='button' class='btn btn-primary btn-icon-text' onclick='goBack()'>Kembali <i class='mdi mdi-backup-restore'></i></button>
+                                <input type='hidden' name='product_id' value='$id'>
+                                ";
+                              }
+                              ?> 
+                                
                             </form>
                             </div>
                         </div>

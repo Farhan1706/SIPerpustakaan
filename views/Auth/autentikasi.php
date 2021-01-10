@@ -24,7 +24,14 @@ if(!empty($_POST)){
 			header('Location: ../Admin/Dashboard');
 		}
 
-		if($row['level']=="Siswa"){
+		if($row['level']=="Petugas"){
+			session_start();
+			$_SESSION['email']=$email;
+			$_SESSION['level']="Petugas";
+			header('Location: ../Petugas/Dashboard');
+		}
+
+		if($row['level']=="Siswa" || $row['level']=="NSiswa"){
 			session_start();
 			$_SESSION['email']=$email;
 			$_SESSION['level']="Siswa";

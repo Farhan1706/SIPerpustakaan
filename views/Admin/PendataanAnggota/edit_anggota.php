@@ -17,6 +17,14 @@ include '../../../database/koneksi.php';
   <title>Perpustakaan</title>
   <!-- AJAX untuk Form -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+			$(document).ready(function(){
+				 $("#rfid").load("../../../UIDContainer.php");
+				setInterval(function() {
+					$("#rfid").load("../../../UIDContainer.php");
+				}, 500);
+			});
+	</script>
   <!-- base:css -->
   <link rel="stylesheet" href="../../../public/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../../../public/css/vendor.bundle.base.css">
@@ -84,11 +92,15 @@ include '../../../database/koneksi.php';
                               <div class="input-group-prepend">
                                 <span class="input-group-text bg-primary text-white font-weight-bold" style="width: 130px;">RFID Anggota</span>
                               </div>
-                              <input type="text" class="form-control" id="rfid" name="rfid" value="<?php echo $data_check['rfid']; ?>" readonly required>
+                              <textarea class="form-control" name="rfid" id="rfid" rows="1" cols="1" readonly required></textarea>
                             </div>
                             <div class="form-group">
                               <label for="exampleInputUsername1">Nama Anggota</label>
                               <input type="text" class="form-control" id="nama" value="<?php echo $data_check['nama']; ?>" name="nama" placeholder="Nama...">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputUsername1">Password</label>
+                              <input type="password" class="form-control" id="password" value="" name="password" placeholder="Password...">
                             </div>
                             <div class="form-group">
                             <label for="exampleSelectGender">Jenis Kelamin</label>
@@ -99,21 +111,7 @@ include '../../../database/koneksi.php';
                             </div>
                             <div class="form-group">
                               <label for="exampleInputUsername1">Kelas</label>
-                              <select class="form-control" id="kelas" name="kelas">
-                                <option value="null"></option>
-                                <?php
-                                // ambil data dari database
-                                $query = "select * from jurusan";
-                                $hasil = mysqli_query($koneksi, $query);
-                                while ($row = mysqli_fetch_array($hasil)) {
-                                ?>
-                                <option value="<?php echo $row['nama'];?>" <?php if($data_check['kelas'] == $row['nama']){echo("selected");} ?>>
-                                  <?php echo $row['nama_pdk']; ?>
-                                </option>
-                                <?php
-                                }
-                                ?>
-                              </select>
+                              <input type="text" class="form-control" id="kelas" value="<?php echo $data_check['kelas']; ?>" name="kelas" placeholder="Nama...">
                             </div>
                             <div class="form-group">
                               <label>No HP:</label>
@@ -122,11 +120,12 @@ include '../../../database/koneksi.php';
                             <div class="form-group">
                             <label for="exampleSelectGender">Status Akun</label>
                               <select class="form-control" id="level" name="level">
+                                <option value="Admin" <?php if($data_check['level'] == "Admin"){echo("selected");} ?>>Admin</option>
                                 <option value="Petugas" <?php if($data_check['level'] == "Petugas"){echo("selected");} ?>>Petugas Perpustakaan</option>
                                 <option value="Siswa" <?php if($data_check['level'] == "Siswa"){echo("selected");} ?>>Siswa/Siswi</option>
                               </select>
                             </div>
-                    <button type="submit" class="btn btn-primary mr-2" name="edit_buku">Ubah</button>
+                    <button type="submit" class="btn btn-primary mr-2" name="edit_anggota">Ubah</button>
                     <a class="btn btn-light" href="./data_anggota">Batal</a>
                   </form>
                 </div>
@@ -183,23 +182,44 @@ include '../../../database/koneksi.php';
 <!-- PHP INSERT DATA -->
 
 <?php
-if (isset ($_POST['edit_buku'])){
+if (isset ($_POST['edit_anggota'])){
   //mulai proses ubah
-    $sql_ubah = "UPDATE akun SET
+    if($_POST['password']!=null){
+      $options = [
+        'cost' => 11,
+      ];
+      // Get the password from post
+      $passwordFromPost = $_POST['password'];
+        
+      $hash = password_hash($passwordFromPost, PASSWORD_BCRYPT, $options);
+      
+      $sql_ubah = "UPDATE akun SET
         id_anggota='".$_POST['id_anggota']."',
         rfid='".$_POST['rfid']."',
         nama='".$_POST['nama']."',
+        password='".$hash."',
         jekel='".$_POST['jekel']."',
         kelas='".$_POST['kelas']."',
         no_hp='".$_POST['no_hp']."',
         level='".$_POST['level']."'
         WHERE id_anggota='".$data_check['id_anggota']."'";
-    $query_ubah = mysqli_query($koneksi, $sql_ubah);
+    }else{
+      $sql_ubah = "UPDATE akun SET
+      id_anggota='".$_POST['id_anggota']."',
+      rfid='".$_POST['rfid']."',
+      nama='".$_POST['nama']."',
+      jekel='".$_POST['jekel']."',
+      kelas='".$_POST['kelas']."',
+      no_hp='".$_POST['no_hp']."',
+      level='".$_POST['level']."'
+      WHERE id_anggota='".$data_check['id_anggota']."'";
+    }
 
+    $query_ubah = mysqli_query($koneksi, $sql_ubah);
     if ($query_ubah) {
         echo("<script>
           Swal.fire({
-            title: 'Mengganti Data Buku!',
+            title: 'Mengganti Data Anggota!',
             text: 'Data Berhasil Dirubah dari Item yang dipilih',
             icon :'success',
             showConfirmButton: false,

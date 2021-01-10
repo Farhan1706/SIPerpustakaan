@@ -111,6 +111,10 @@ $dataLog = $stmt->fetch_assoc();
                       <label>Pengarang:</label>
                       <input type="text" class="form-control" name="pengarang" value="<?php echo $data_check['pengarang']; ?>" required>
                     </div>
+                    <div class="form-group">
+                      <label>Nomor ISBN:</label>
+                      <input type="text" class="form-control" name="ISBN" value="<?php echo $data_check['ISBN']; ?>" required>
+                    </div>
                     <div class="form-group row">
                       <div class="col">
                         <label>Penerbit:</label>
@@ -258,6 +262,7 @@ if (isset ($_POST['edit_buku'])){
         pengarang='".$_POST['pengarang']."',
         penerbit='".$_POST['penerbit']."',
         th_terbit='".$_POST['th_terbit']."',
+        ISBN='".$_POST['ISBN']."',
         sinopsis='".$_POST['sinopsis']."',
         item_image='".$itempic."',
         item_document='".$itempdf."'
@@ -274,6 +279,7 @@ if (isset ($_POST['edit_buku'])){
         pengarang='".$_POST['pengarang']."',
         penerbit='".$_POST['penerbit']."',
         th_terbit='".$_POST['th_terbit']."',
+        ISBN='".$_POST['ISBN']."',
         sinopsis='".$_POST['sinopsis']."',
         item_image='".$itempic."'
         WHERE id_buku='".$data_check['id_buku']."'";
@@ -289,6 +295,7 @@ if (isset ($_POST['edit_buku'])){
         pengarang='".$_POST['pengarang']."',
         penerbit='".$_POST['penerbit']."',
         th_terbit='".$_POST['th_terbit']."',
+        ISBN='".$_POST['ISBN']."',
         sinopsis='".$_POST['sinopsis']."',
         item_document='".$itempdf."'
         WHERE id_buku='".$data_check['id_buku']."'";
@@ -300,6 +307,7 @@ if (isset ($_POST['edit_buku'])){
     pengarang='".$_POST['pengarang']."',
     penerbit='".$_POST['penerbit']."',
     th_terbit='".$_POST['th_terbit']."',
+    ISBN='".$_POST['ISBN']."',
     sinopsis='".$_POST['sinopsis']."'
     WHERE id_buku='".$data_check['id_buku']."'";
     

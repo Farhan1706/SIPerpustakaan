@@ -11,11 +11,15 @@ if(!empty($UIDresult)){
     if($row['level']=="Admin"){
         session_start();
         $_SESSION['email']=$row['email'];
-        header("Location: views/Admin/Dashboard");
+        header("Location: /sipus/views/Admin/Dashboard");
+    }elseif($row['level']=="Petugas"){
+        session_start();
+        $_SESSION['email']=$row['email'];
+        header("Location: /sipus/views/Petugas/Dashboard");
     }elseif($row['level']=="Siswa"){
         session_start();
         $_SESSION['email']=$row['email'];
-        header("Location: views/Siswa");
+        header("Location: /sipus/views/Siswa/Dashboard");
     }
 }
 ?>

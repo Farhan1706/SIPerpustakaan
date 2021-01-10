@@ -66,18 +66,11 @@ require_once "UIDContainer.php";
 						</button>
 					</div>
 
-					<div class="text-center p-t-12">
-						<span class="txt1">
-							Lupa
-						</span>
-						<a class="txt2" href="views/auth">
-							Email / Password?
-						</a>
-					</div>
+					
 
 					<div class="text-center p-t-136">
-					<a target="_blank" class="txt2" href="https://wa.me/+6287827575920?text=Saya%20hendak%20membuat%20akun%20perpustakaan`">
-							Belum Memiliki Akun ? </br> Hubungi Admin Sekarang
+					<a  class="txt2" href="/sipus/views/Auth/anggota-baru.php">
+							Belum Memiliki Akun ? </br> Buat Sekarang!
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>
 					</div>

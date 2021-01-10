@@ -7,14 +7,10 @@ if (isset($_SESSION['email'])) {
 if(isset($_SESSION['rfid'])){
  $rfid = $_SESSION['rfid'];
 };
-// include '../../../database/database.php';
+
 include '../../../database/koneksi.php';
 
-// require_once ('../konten/CreateDB.php');
 require_once ('../konten/component.php');
-
-// $db = new CreateDb("Productdb", "Producttb");
-// $database = new mysqli("localhost","root","","productdb");
 
 ?>
 <!DOCTYPE html>
@@ -74,7 +70,10 @@ require_once ('../konten/component.php');
                     ?>
                     <?php
                         if (isset($_SESSION['cart'])){
-                          echo "
+                            $product_id = array_column($_SESSION['cart'], 'product_id');
+                            $count = count($_SESSION['cart']);
+                            if($count>0){
+                              echo "
                               <div class='col-12 grid-margin stretch-card'>
                                       <div class='row col'>
                                       <a class='btn btn-primary btn-icon-text shadow' href='./cart_buku?action=cart_pinjam'>
@@ -84,9 +83,6 @@ require_once ('../konten/component.php');
                                       </div>
                               </div>
                               ";
-                            $product_id = array_column($_SESSION['cart'], 'product_id');
-                            $count = count($_SESSION['cart']);
-                            if($count>0){
                               $sql = "SELECT * FROM data_buku";
                               $result = $koneksi->query($sql);
                               while ($row = mysqli_fetch_assoc($result)){

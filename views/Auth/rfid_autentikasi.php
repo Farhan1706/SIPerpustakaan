@@ -12,11 +12,15 @@ session_start();
     if($row['status']=="Admin"){
         session_start();
         $_SESSION['email']=$row['email'];
-        header("Location: ../Admin");
+        header("Location: /sipus/views/Admin/Dashboard");
+    }elseif($row['status']=="Petugas"){
+        session_start();
+        $_SESSION['email']=$row['email'];
+        header("Location: /sipus/views/Petugas/Dashboard");
     }elseif($row['status']=="Siswa"){
         session_start();
         $_SESSION['email']=$row['email'];
-        header("Location: ../Siswa");
+        header("Location: /sipus/views/Siswa/Dashboard");
     }
     else{
         header("Location: ./destroy.php");
@@ -24,34 +28,34 @@ session_start();
 ?>
 
 <?php
-include "database/koneksi.php";
-require_once "UIDContainer.php";
-if(!empty($UIDresult)){
-	$rfid = $UIDresult;
+// include "database/koneksi.php";
+// require_once "UIDContainer.php";
+// if(!empty($UIDresult)){
+// 	$rfid = $UIDresult;
 
-    $sql = "SELECT COUNT(*) FROM akun WHERE rfid='$rfid';";
-	$result = $koneksi -> query($sql);
-	if($result->mysqli_num_rows > 0){
-		$row = $result -> fetch_assoc();
-		if($row['level']=="Admin"){
-			session_start();
-			$_SESSION['email']=$row['email'];
-			header("Location: views/Admin/Dashboard");
-		}elseif($row['level']=="Siswa"){
-			session_start();
-			$_SESSION['email']=$row['email'];
-			header("Location: views/Siswa");
-		}
-	}else{
-		echo "<script>
-        Swal.fire({title: 'RFID Belum Terdaftar',text: '',icon: 'success', showConfirmButton: false, timer: 3500
-        }).then((result) => {
-          window.location = './auth-rfid';
-        })					
-        }
-        </script>";
-	}
-}
+//     $sql = "SELECT COUNT(*) FROM akun WHERE rfid='$rfid';";
+// 	$result = $koneksi -> query($sql);
+// 	if($result->mysqli_num_rows > 0){
+// 		$row = $result -> fetch_assoc();
+// 		if($row['level']=="Admin"){
+// 			session_start();
+// 			$_SESSION['email']=$row['email'];
+// 			header("Location: views/Admin/Dashboard");
+// 		}elseif($row['level']=="Siswa"){
+// 			session_start();
+// 			$_SESSION['email']=$row['email'];
+// 			header("Location: views/Siswa");
+// 		}
+// 	}else{
+// 		echo "<script>
+//         Swal.fire({title: 'RFID Belum Terdaftar',text: '',icon: 'success', showConfirmButton: false, timer: 3500
+//         }).then((result) => {
+//           window.location = './auth-rfid';
+//         })					
+//         }
+//         </script>";
+// 	}
+// }
 ?>
 </div>
 <!DOCTYPE html>
