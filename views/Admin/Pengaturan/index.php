@@ -357,7 +357,7 @@ $(document).ready(function() {
                 text: 'Lengkapi Data Terlebih Dahulu!'
                 }).then((result) =>{
                   if(result.value){
-                    window.location ='./data_anggota';
+                    window.location ='../Pengaturan';
                   }
                 })
       }

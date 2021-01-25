@@ -193,13 +193,6 @@ $format = "A"."00".$tambah;
                               <label>No HP:</label>
                               <input class="form-control" id="no_hp" name="no_hp" data-inputmask="'alias': 'phoneid'">
                             </div>
-                            <div class="form-group">
-                            <label for="exampleSelectGender">Status</label>
-                              <select class="form-control" id="level" name="level">
-                                <option value="Petugas">Petugas Perpustakaan</option>
-                                <option value="Siswa">Siswa</option>
-                              </select>
-                            </div>
                         </div>
                         <div class="modal-footer">
                           <button type="button" name="save" class="btn btn-success btn-icon-text" value="Save to database" id="butsave">
@@ -250,8 +243,7 @@ $format = "A"."00".$tambah;
       var jurusan        = $('#jurusan').val();
       var kelompok       = $('#kelompok').val();
       var no_hp          = $('#no_hp').val();
-      var level          = $('#level').val();
-      if(id_anggota!="" && email!="" && password!="" && nama!="" && jekel!="" && no_hp!="" && level!=""){
+      if(id_anggota!="" && email!="" && password!="" && nama!="" && jekel!="" && no_hp!=""){
         $.ajax({
           url: "tambah_anggota.php",
           type: "POST",
@@ -265,8 +257,7 @@ $format = "A"."00".$tambah;
             tingkat: tingkat,
             jurusan: jurusan,
             kelompok: kelompok,
-            no_hp: no_hp,
-            level: level
+            no_hp: no_hp
           },
           cache: false,
           success: function(dataResult){

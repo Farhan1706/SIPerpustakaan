@@ -5,6 +5,9 @@
             <span class="mdi mdi-menu"></span>
           </button>
           <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item">
+              <h4 id="TampilTanggal" class="mb-0 font-weight-bold d-none d-xl-block"></h4>
+            </li>
             <li class="nav-item dropdown mr-2">
               <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
                 <i class="mdi mdi-email-open mx-0"></i>
@@ -14,7 +17,7 @@
                 $DSiswa = $kueri->fetch_assoc();
                 $NSiswa = $kueri->num_rows;
   
-                $notifikasi = "SELECT DATE(l.tanggal_pembuatan) as tanggal FROM log_akun l INNER JOIN akun a ON l.id_anggota=a.id_anggota WHERE l.tanggal_pembuatan LIKE '%".$today."%' AND a.level='NSiswa'";
+                $notifikasi = "SELECT DATE(l.tgl_pembuatan) as tanggal FROM log_akun l INNER JOIN akun a ON l.id_anggota=a.id_anggota WHERE l.tgl_pembuatan LIKE '%".$today."%' AND a.level='NSiswa'";
                 $notifikasi = $koneksi->query($notifikasi);
                 $combine = $notifikasi->num_rows;
                 if($combine>0){

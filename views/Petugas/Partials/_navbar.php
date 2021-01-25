@@ -71,7 +71,7 @@
                 $DSiswa = $kueri->fetch_assoc();
                 $NSiswa = $kueri->num_rows;
   
-                $notifikasi = "SELECT DATE(l.tanggal_pembuatan) as tanggal FROM log_akun l INNER JOIN akun a ON l.id_anggota=a.id_anggota WHERE l.tanggal_pembuatan LIKE '%".$today."%' AND a.level='NSiswa'";
+                $notifikasi = "SELECT DATE(l.tgl_pembuatan) as tanggal FROM log_akun l INNER JOIN akun a ON l.id_anggota=a.id_anggota WHERE l.tgl_pembuatan LIKE '%".$today."%' AND a.level='NSiswa'";
                 $notifikasi = $koneksi->query($notifikasi);
                 $combine = $notifikasi->num_rows;
                 if($combine>0){

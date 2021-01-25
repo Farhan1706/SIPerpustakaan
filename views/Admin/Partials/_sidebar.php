@@ -33,11 +33,17 @@
           <span></span>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../Pengaturan/">
+          <a class="nav-link collapsed" data-toggle="collapse" href="#sistem" aria-expanded="false" aria-controls="ui-basic">
             <i class="mdi mdi-settings menu-icon"></i>
             <span class="menu-title">Sistem</span>
-            <!-- <div class="badge badge-info badge-pill"></div> -->
+            <i class="menu-arrow"></i>
           </a>
+          <div class="collapse" id="sistem" style="">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="/sipus/views/Admin/Pengaturan/">Pengaturan Buku</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/sipus/views/Admin/Pengaturan/Jurusan">Pengaturan Jurusan</a></li>
+            </ul>
+          </div>
         </li>
       </ul>
     </nav>

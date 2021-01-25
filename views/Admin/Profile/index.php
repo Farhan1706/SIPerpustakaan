@@ -104,7 +104,7 @@ include '../../../database/koneksi.php';
                               <input class="form-control" id="no_hp" name="no_hp" value="<?php echo $data_check['no_hp']; ?>" data-inputmask="'alias': 'phoneid'">
                             </div>
                     <button type="submit" class="btn btn-primary mr-2" name="edit_anggota">Ubah</button>
-                    <a class="btn btn-light" href="./data_anggota">Batal</a>
+                    <a class="btn btn-light" href="http://localhost/sipus/views/Admin/Dashboard">Batal</a>
                   </form>
                 </div>
                 </div>

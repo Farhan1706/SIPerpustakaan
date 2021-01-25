@@ -20,7 +20,7 @@
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    $stmt = $koneksi->prepare("SELECT DATE(tanggal_pembuatan) as selisih FROM log_akun WHERE id_anggota='".$row['id_anggota']."'");
+                    $stmt = $koneksi->prepare("SELECT DATE(tgl_pembuatan) as selisih FROM log_akun WHERE id_anggota='".$row['id_anggota']."'");
                     $stmt->execute();
                     $hasil = $stmt->get_result();
                     $loghp = $hasil->fetch_assoc();

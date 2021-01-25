@@ -11,6 +11,13 @@
             <!-- <div class="badge badge-info badge-pill"></div> -->
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sipus/views/Siswa/Peminjaman">
+            <i class="mdi mdi-folder-clock menu-icon"></i>
+            <span class="menu-title">Catatan Peminjaman</span>
+            <!-- <div class="badge badge-info badge-pill"></div> -->
+          </a>
+        </li>
         <li class="nav-item sidebar-category">
           <p>Informasi Perpustakaan</p>
           <span></span>
@@ -24,7 +31,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/sipus/views/Siswa/Info/FAQ">
             <i class="mdi mdi-help menu-icon"></i>
-            <span class="menu-title">FAQ</span>
+            <span class="menu-title">Pertanyaan</span>
           </a>
         </li>
       </ul>

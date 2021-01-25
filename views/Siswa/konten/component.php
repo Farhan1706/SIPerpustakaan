@@ -6,8 +6,8 @@ function component($judul_buku, $item_image, $id_buku){
     $element = "
     <div class='col-md-3 col-sm-6 col-lg-3 col-xl-3'>
                 <form action='../Dashboard/' method='post'>
-                    <div class='card shadow col'>
-                            <img src='../../../public/images/public_images/".$item_image."' class='mt-3' height='300px' width='253px' alt='Gambar Produk'>
+                    <div class='card shadow col mt-4'>
+                            <img src='../../../public/images/public_images/".$item_image."' class='mt-3' height='300px' alt='Gambar Produk'>
                         <div class='card-body konten'>
                             <h5 class='card-title'>$out</h5>
                         </div>

@@ -96,11 +96,24 @@ if (isset($_POST['add'])){
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
+          <div class="col alert alert-fill-primary" role="alert">
+              <i class="mdi mdi-alert-circle" data-toggle="tooltip" data-placement="top" title data-original-title="Pengumuman Terkini!"></i>
+              <marquee>
+              <?php
+              $stmt = $koneksi->prepare("SELECT * FROM pengumuman");
+              $stmt->execute();
+              $hp = $stmt->get_result();
+              while($p = $hp->fetch_assoc()){
+                echo "<div class='badge badge-pill badge-primary '><i class='mdi mdi-bullhorn'></i>".$p['keterangan']."</div>";
+              }
+              ?>
+              </marquee>
+            </div>
             <div class="col grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <div class="owl-carousel owl-theme full-width">
-                    <div class="item">
+                    <!-- <div class="item">
                       <div class="card text-white">
                         <img class="card-img" src="../../../public/images/carousel/img1.jpg" alt="Card image">
                         <div class="card-img-overlay d-flex">
@@ -110,19 +123,19 @@ if (isset($_POST['add'])){
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="item">
                       <div class="card text-white">
                         <img class="card-img" src="../../../public/images/carousel/img2.jpg" alt="Card image">
                         <div class="card-img-overlay d-flex">
                           <div class="mt-auto text-center w-100">
-                            <h3>Third Slide Label</h3>
-                            <h6 class="card-text mb-4 font-weight-normal">Nulla vitae elit libero, a pharetra augue mollis interdum.</h6>
+                            <h3>Gedung</h3>
+                            <h6 class="card-text mb-4 font-weight-normal">Gedung .</h6>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="item">
+                    <!-- <div class="item">
                       <div class="card text-white">
                         <img class="card-img" src="../../../public/images/carousel/img3.jpg" alt="Card image">
                         <div class="card-img-overlay d-flex">
@@ -132,7 +145,7 @@ if (isset($_POST['add'])){
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>

@@ -8,7 +8,7 @@ if(isset($_SESSION['rfid'])){
 };
 include '../../../database/koneksi.php';
 
-$carikode = mysqli_query($koneksi,"SELECT l.id_buku,l.tanggal_pembuatan FROM data_buku d INNER JOIN log_buku l ON l.id_buku=d.id_buku ORDER BY tanggal_pembuatan DESC");
+$carikode = mysqli_query($koneksi,"SELECT l.id_buku,l.tgl_pembuatan FROM data_buku d INNER JOIN log_buku l ON l.id_buku=d.id_buku ORDER BY tgl_pembuatan DESC");
   $datakode = mysqli_fetch_array($carikode);
   $kode = $datakode['id_buku'];
   $urut = substr($kode, 3);

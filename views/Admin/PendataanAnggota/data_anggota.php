@@ -196,6 +196,7 @@ $format = "A"."00".$tambah;
                             <div class="form-group">
                             <label for="exampleSelectGender">Status</label>
                               <select class="form-control" id="level" name="level">
+                                <option value="Admin">Admin</option>
                                 <option value="Petugas">Petugas Perpustakaan</option>
                                 <option value="Siswa">Siswa</option>
                               </select>

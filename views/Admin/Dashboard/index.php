@@ -19,7 +19,7 @@ $today = date("Y-m-d");
 		$buku=$data['buku'];
   }
 
-  $kueri = $koneksi->query("SELECT COUNT(id_buku) FROM log_buku WHERE tanggal_pembuatan LIKE '%".$today."%'");
+  $kueri = $koneksi->query("SELECT COUNT(id_buku) FROM log_buku WHERE tgl_pembuatan LIKE '%".$today."%'");
   $result = $kueri->fetch_row();
   $log_buku = $result[0];
 ?>
@@ -31,7 +31,7 @@ $today = date("Y-m-d");
 		$agt=$data['agt'];
   }
   
-  $kueri = $koneksi->query("SELECT COUNT(id_anggota) FROM log_akun WHERE tanggal_pembuatan LIKE '%".$today."%'");
+  $kueri = $koneksi->query("SELECT COUNT(id_anggota) FROM log_akun WHERE tgl_pembuatan LIKE '%".$today."%'");
   $result = $kueri->fetch_row();
   $log_akun = $result[0];
 ?>

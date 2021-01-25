@@ -24,7 +24,7 @@
         '".$_POST['jekel']."',
         '".$kelas."',
         '".$_POST['level']."')";
-        $sql_log = "INSERT INTO log_akun(id_anggota,tanggal_pembuatan) VALUES (
+        $sql_log = "INSERT INTO log_akun(id_anggota,tgl_pembuatan) VALUES (
             '".$_POST['id_anggota']."',
             '".$today."')";
 

@@ -71,7 +71,7 @@ if(isset($_POST['save'])){
         '".$itempic."',
         '".$itempdf."',
         '".$sinopsis."')";
-    $sql_log = "INSERT INTO log_buku(id_buku,tanggal_pembuatan) VALUES (
+    $sql_log = "INSERT INTO log_buku(id_buku,tgl_pembuatan) VALUES (
         '".$id_buku."',
         '".$tanggal."')";
 
@@ -110,7 +110,7 @@ if(isset($_POST['save'])){
         '".$ISBN."',
         '".$itempic."',
         '".$sinopsis."')";
-    $sql_log = "INSERT INTO log_buku(id_buku,tanggal_pembuatan) VALUES (
+    $sql_log = "INSERT INTO log_buku(id_buku,tgl_pembuatan) VALUES (
       '".$id_buku."',
       '".$tanggal."')";
 
@@ -148,7 +148,7 @@ if(isset($_POST['save'])){
         '".$ISBN."',
         '".$itempdf."',
         '".$sinopsis."')";
-    $sql_log = "INSERT INTO log_buku(id_buku,tanggal_pembuatan) VALUES (
+    $sql_log = "INSERT INTO log_buku(id_buku,tgl_pembuatan) VALUES (
       '".$id_buku."',
       '".$tanggal."')";
 
@@ -169,7 +169,7 @@ if(isset($_POST['save'])){
         '".$th_terbit."',
         '".$ISBN."',
         '".$sinopsis."')";
-    $sql_log = "INSERT INTO log_buku(id_buku,tanggal_pembuatan) VALUES (
+    $sql_log = "INSERT INTO log_buku(id_buku,tgl_pembuatan) VALUES (
       '".$id_buku."',
       '".$tanggal."')";
       

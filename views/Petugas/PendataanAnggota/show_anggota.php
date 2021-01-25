@@ -15,7 +15,7 @@
     <?php
     include '../../../database/koneksi.php';
     $no     = 1;
-    $query  = "SELECT * FROM akun where level='Petugas' or level='Siswa' ORDER BY id_anggota ASC";
+    $query  = "SELECT * FROM akun where level='Siswa' ORDER BY id_anggota ASC";
     $data   = $koneksi->prepare($query);
     $data->execute();
     $result = $data->get_result();
@@ -39,7 +39,6 @@
           <td><?php echo $level; ?></td>
           <td class="text-right">
             <button id="<?php echo $id; ?>" class="btn btn-light edit_data"> <i class="mdi mdi-eye text-primary"></i> Sunting </button>
-            <button id="<?php echo $id; ?>" class="btn btn-light hapus_data"> <i class="mdi mdi-close text-danger"></i> Hapus </button>
           </td>
       </tr>
       <?php } } else { ?> 
@@ -71,43 +70,5 @@
             window.location='./edit_anggota?id='+ id;
         }
         });
-    });
-
-    $(document).on('click', '.hapus_data', function(){
-        Swal.fire({
-					  title: 'Proses Hapus Anggota!',
-					  text: "Apakah Anda Yakin Akan Menghapus Anggota Ini?",
-					  icon: 'warning',
-					  showCancelButton: true,
-                      cancelButtonText: 'Batal',
-					  confirmButtonText: 'Hapus Anggota!'
-        }).then((result) => {
-        if (result.value){
-            var id = $(this).attr('id');
-            
-            $.ajax({
-            type: 'POST',
-            url: "hapus_anggota.php",
-            data: {id:id},
-            success: function(response) {
-                Swal.fire({
-                    title: 'Proses Hapus Data!',
-                    text: 'Data Berhasil Dihapus dari Daftar Buku',
-                    icon :'success',
-                    showConfirmButton: false,
-                    timer: 1500
-                    }).then((result) => {
-						$('.show_anggota').load("show_anggota.php");
-					});
-            },error: function(response){
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Gagal Menghapus!'
-                });
-            }
-            });
-        }
-        })
     });
 </script>

@@ -114,11 +114,8 @@ include '../../../database/koneksi.php';
                               <input class="form-control" id="no_hp" name="no_hp" value="<?php echo $data_check['no_hp']; ?>" data-inputmask="'alias': 'phoneid'">
                             </div>
                             <div class="form-group">
-                            <label for="exampleSelectGender">Status Akun</label>
-                              <select class="form-control" id="level" name="level">
-                                <option value="Petugas" <?php if($data_check['level'] == "Petugas"){echo("selected");} ?>>Petugas Perpustakaan</option>
-                                <option value="Siswa" <?php if($data_check['level'] == "Siswa"){echo("selected");} ?>>Siswa/Siswi</option>
-                              </select>
+                            <label for="exampleSelectGender"></label>
+                              
                             </div>
                     <button type="submit" class="btn btn-primary mr-2" name="edit_anggota">Ubah</button>
                     <a class="btn btn-light" href="./data_anggota">Batal</a>
@@ -188,8 +185,7 @@ if (isset ($_POST['edit_anggota'])){
       nama='".$_POST['nama']."',
       jekel='".$_POST['jekel']."',
       kelas='".$_POST['kelas']."',
-      no_hp='".$_POST['no_hp']."',
-      level='".$_POST['level']."'
+      no_hp='".$_POST['no_hp']."'
       WHERE id_anggota='".$data_check['id_anggota']."'";
 
     $query_ubah = mysqli_query($koneksi, $sql_ubah);
