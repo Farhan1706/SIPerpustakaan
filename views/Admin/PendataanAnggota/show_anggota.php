@@ -92,7 +92,7 @@
             success: function(response) {
                 Swal.fire({
                     title: 'Proses Hapus Data!',
-                    text: 'Data Berhasil Dihapus dari Daftar Buku',
+                    text: 'Data Berhasil Dihapus dari Daftar Anggota',
                     icon :'success',
                     showConfirmButton: false,
                     timer: 1500

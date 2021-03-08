@@ -183,7 +183,7 @@ if(isset($_POST['save'])){
   <script>
   Swal.fire({
     icon: 'error',
-    title: 'Oops..BRUHH.',
+    title: 'Oops...',
     text: 'Terjadi Kesalahan!'
     })
   </script>

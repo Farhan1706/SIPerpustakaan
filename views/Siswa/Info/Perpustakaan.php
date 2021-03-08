@@ -113,39 +113,50 @@ if (isset($_POST['add'])){
               <div class="card">
                 <div class="card-body">
                   <div class="owl-carousel owl-theme full-width">
-                    <!-- <div class="item">
-                      <div class="card text-white">
-                        <img class="card-img" src="../../../public/images/carousel/img1.jpg" alt="Card image">
-                        <div class="card-img-overlay d-flex">
-                          <div class="mt-auto text-center w-100">
-                            <h3>Third Slide Label</h3>
-                            <h6 class="card-text mb-4 font-weight-normal">Nulla vitae elit libero, a pharetra augue mollis interdum.</h6>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
                     <div class="item">
                       <div class="card text-white">
-                        <img class="card-img" src="../../../public/images/carousel/img2.jpg" alt="Card image">
+                        <img class="card-img" src="../../../public/images/carousel/lg1.jpg" alt="Card image">
                         <div class="card-img-overlay d-flex">
                           <div class="mt-auto text-center w-100">
-                            <h3>Gedung</h3>
-                            <h6 class="card-text mb-4 font-weight-normal">Gedung .</h6>
+                            <h3>Perpustakaan SMKN 1 Cimahi</h3>
+                            <h6 class="card-text mb-4 font-weight-normal">Pintu Masuk Perpustakaan</h6>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="item">
+                    <div class="item">
                       <div class="card text-white">
-                        <img class="card-img" src="../../../public/images/carousel/img3.jpg" alt="Card image">
+                        <img class="card-img" src="../../../public/images/carousel/lg2.jpg" alt="Card image">
                         <div class="card-img-overlay d-flex">
                           <div class="mt-auto text-center w-100">
-                            <h3>Third Slide Label</h3>
-                            <h6 class="card-text mb-4 font-weight-normal">Nulla vitae elit libero, a pharetra augue mollis interdum.</h6>
+                            <h3>Perpustakaan SMKN 1 Cimahi</h3>
+                            <h6 class="card-text mb-4 font-weight-normal">Tempat Membaca</h6>
                           </div>
                         </div>
                       </div>
-                    </div> -->
+                    </div>
+                    <div class="item">
+                      <div class="card text-white">
+                        <img class="card-img" src="../../../public/images/carousel/lg3.jpg" alt="Card image">
+                        <div class="card-img-overlay d-flex">
+                          <div class="mt-auto text-center w-100">
+                            <h3>Perpustakaan SMKN 1 Cimahi</h3>
+                            <h6 class="card-text mb-4 font-weight-normal">Rak Koleksi Buku</h6>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="card text-white">
+                        <img class="card-img" src="../../../public/images/carousel/lg4.jpg" alt="Card image">
+                        <div class="card-img-overlay d-flex">
+                          <div class="mt-auto text-center w-100">
+                            <h3>Perpustakaan SMKN 1 Cimahi</h3>
+                            <h6 class="card-text mb-4 font-weight-normal">Tempat Membaca</h6>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -157,13 +168,22 @@ if (isset($_POST['add'])){
                 <div class="card-body">
                   <div class="owl-carousel owl-theme loop">
                     <div class="item">
-                      <img src="../../../public/images/carousel/img1.jpg" alt="image"/>
+                      <img src="../../../public/images/carousel/lg1.jpg" alt="image"/>
                     </div>
                     <div class="item">
-                      <img src="../../../public/images/carousel/img2.jpg" alt="image"/>
+                      <img src="../../../public/images/carousel/lg2.jpg" alt="image"/>
                     </div>
                     <div class="item">
-                      <img src="../../../public/images/carousel/img3.jpg" alt="image"/>
+                      <img src="../../../public/images/carousel/lg3.jpg" alt="image"/>
+                    </div>
+                    <div class="item">
+                      <img src="../../../public/images/carousel/lg4.jpg" alt="image"/>
+                    </div>
+                    <div class="item">
+                      <img src="../../../public/images/carousel/img7.jpg" alt="image"/>
+                    </div>
+                    <div class="item">
+                      <img src="../../../public/images/carousel/img6.jpg" alt="image"/>
                     </div>
                     <div class="item">
                       <img src="../../../public/images/carousel/img4.jpg" alt="image"/>
@@ -171,12 +191,7 @@ if (isset($_POST['add'])){
                     <div class="item">
                       <img src="../../../public/images/carousel/img5.jpg" alt="image"/>
                     </div>
-                    <div class="item">
-                      <img src="../../../public/images/carousel/img6.jpg" alt="image"/>
-                    </div>
-                    <div class="item">
-                      <img src="../../../public/images/carousel/img7.jpg" alt="image"/>
-                    </div>
+                  </div>
                   </div>
                 </div>
               </div>
