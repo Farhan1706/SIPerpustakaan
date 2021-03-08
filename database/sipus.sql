@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2021 at 02:38 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.3.22
+-- Waktu pembuatan: 08 Mar 2021 pada 06.14
+-- Versi server: 10.4.14-MariaDB
+-- Versi PHP: 7.3.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `akun`
+-- Struktur dari tabel `akun`
 --
 
 CREATE TABLE `akun` (
@@ -40,20 +40,19 @@ CREATE TABLE `akun` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `akun`
+-- Dumping data untuk tabel `akun`
 --
 
 INSERT INTO `akun` (`id_anggota`, `email`, `password`, `rfid`, `no_hp`, `nama`, `jekel`, `kelas`, `level`) VALUES
-('A005', 'alif@gmail.com', '$2y$11$7CS0I0Xhyxp8hFKOeLFxxeG5pyzo1u92oEM4h1OpuxopG1Bo2BT8O', 'B969A4A3', '+62(888)4443-333', 'Mohamad Alif Dzikry', 'LK', '13 Sistem Informatika Jaringan dan Aplikasi B', 'Siswa'),
-('A004', 'farhan@gmail.com', '$2y$11$WtKIA.YuT4LwPZTKGT1TIec92JU6IClGv9mJZNlQm47ecwcaOG0oO', '999498D5', '+62(878)2759-207', 'Farhan Naufal', 'LK', '13 Sistem Informatika Jaringan dan Aplikasi B', 'Siswa'),
-('A003', 'mirna@gmail.com', '$2y$11$ThZoUMwUZHtigHP3qdVhg.531gB0FSMGzRP67SlmWtF2pAI1zZ1nO', '', '+62(88)833-3444', 'Mirna Rahayu Daivani', 'PR', '13 Sistem Informatika Jaringan dan Aplikasi A', 'Siswa'),
-('A006', 'rafi@gmail.com', '$2y$11$/VjC2lm7stk4oz.sBYyjVeVUzXnHbtzvc7e5qZB.hfXguduWozBdC', '873D174E', '+62(888)8777-777', 'Muhamad Rafi Raditya Dzakwan', 'LK', '13 Sistem Informatika Jaringan dan Aplikasi B', 'Petugas'),
-('A001', 'vnalvaro24@gmail.com', '$2y$11$nfi/o.CajSYPfrWr1SewUec8K6dbfR2pOfD9yqoVZhiMg9O9gYwV.', '03A4EF02', '+62(878)2757-592', 'Farhan Naufal', 'LK', '', 'Admin');
+('A001', 'farhan@admin.com', '$2y$11$dX9w1tZsMGmAK277roMpg.MlMA7dROQnwHbncS7ZpRErbGT1G1bDe', '', '+62(878)2757-592', 'Farhan Naufal', 'LK', '13 Sistem Informatika Jaringan dan Aplikasi B', 'Admin'),
+('A002', 'farhan@nsiswa.com', '$2y$11$4FYnYX38rkrNs3tiRuv2wuUIUIvcGwYt/SSvRQdiMZoTzWtgD7Ssq', NULL, '+62(878)2757-592', 'Farhan Nonsiswa', 'LK', '13 Sistem Informatika Jaringan dan Aplikasi B', 'NSiswa'),
+('A003', 'farhan@petugas.com', '$2y$11$/AGNRT5vkqBemKS5aVoajutHD9dtGqWLKtNBobCrNvZ/EkIyGUDCm', '', '+62(878)2757-592', 'Farhan Petugas', 'LK', '13 Sistem Informatika Jaringan dan Aplikasi B', 'Petugas'),
+('A004', 'farhan@siswa.com', '$2y$11$/5SrtbPZ3gWjkS.fpTQBHuq.8wQwI1nKi0AkHyMxfBDTT/vy5iKpG', '', '+62(878)2757-592', 'Farhan Siswa', 'LK', '13 Sistem Informatika Jaringan dan Aplikasi B', 'Siswa');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_buku`
+-- Struktur dari tabel `data_buku`
 --
 
 CREATE TABLE `data_buku` (
@@ -61,7 +60,7 @@ CREATE TABLE `data_buku` (
   `judul_buku` varchar(100) NOT NULL,
   `pengarang` varchar(30) NOT NULL,
   `penerbit` varchar(30) NOT NULL,
-  `th_terbit` year(4) NOT NULL,
+  `th_terbit` year(4) DEFAULT NULL,
   `ISBN` varchar(30) DEFAULT NULL,
   `sinopsis` text DEFAULT 'Sinopsis Belum Tersedia Untuk Buku Ini.',
   `item_image` varchar(5000) DEFAULT 'default.png',
@@ -69,17 +68,16 @@ CREATE TABLE `data_buku` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `data_buku`
+-- Dumping data untuk tabel `data_buku`
 --
 
 INSERT INTO `data_buku` (`id_buku`, `judul_buku`, `pengarang`, `penerbit`, `th_terbit`, `ISBN`, `sinopsis`, `item_image`, `item_document`) VALUES
-('SOL1', 'HANTU DIGOEL', 'Takashi Shiraishi', 'LKiS', 2016, '979-8966-78-3', '<p>Buku ini berusaha mengungkapkan keberadaan Pulau Digoel sebagai kamp tahanan. Keadaan Digoel yang 100% terisolasi, belantara rawa penuh nyamuk malaria, dan berada sekitar 450 km ke hulu sungai yang penuh buaya adalah siksaan tersendiri. Dengan daerah hunian yang tak layak huni ini, rasa sepi yang mencekam dan rindu kampung halaman yang kuat, maka ada di antara para tahanan ini yang kemudian menjadi gila, mati, mencoba melarikan diri namun kemudian lenyap tak tahu rimbanya, atau tunduk dengan apa yang diinginkan oleh pemerintah.</p>\r\n', '692826.jpg', '372444.pdf'),
-('SOL2', 'Makna Budaya dalam Komunikasi Antar Budaya', 'Dr. Alo Liliweri, MS', 'LKiS', 2007, '978-979-9492-88-0', '<p>Manusia, baik sebagai makhluk individu maupun sosial selalu melakukan aktifitas komunikasi. Komunikasi antarsesama, dengan Tuhan, bahkan dengan makhluk-makluk lainnya. Komunikasi antarbudaya pada dasarnya mengacu pada realitas keragaman budaya dalam masyarakat yang masing-masing memiliki etika, tata cara, unggah-ungguh berkomunikasi yang beragam pula.</p>\r\n', '972093.jpg', '591500.pdf');
+('FKS1', 'Mantappu Jiwa', 'Jerome Polin Sijabat', 'Gramedia Pustaka Utama', 2019, '978-602-06-3241-4', '<p>&ldquo;Jadi ini buku soal latihan Matematika ya, Jer?&rdquo;</p>\r\n\r\n<p>Bukan!</p>\r\n\r\n<p>Kata orang, selama masih hidup, manusia akan terus menghadapi masalah demi masalah.&nbsp;&nbsp;Dan itulah yang kuceritakan dalam buku ini, yaitu bagaimana aku menghadapi setiap persoalan&nbsp;&nbsp;di dalam hidupku.&nbsp;&nbsp;Di mulai dari aku yang lahir dekat dengan hari meletusnya kerusuhan di tahun 1998, bagaimana keluargaku berusaha menyekolahkanku dengan kondisi ekonomi yang terbatas, sampai pada akhirnya aku berhasil mendapatkan beasiswa S1 di Jepang.</p>\r\n\r\n<p>Manusia tidak akan pernah lepas dari masalah kehidupan, betul.&nbsp;&nbsp;Tapi buku ini tidak hanya berisi cerita sedih dan keluhan ini-itu.&nbsp;&nbsp;Ini adalah catatan perjuanganku sebagai Jerome Polin Sijabat, sebagai pelajar Indonesia di Jepang yang iseng memulai petualangan di YouTube lewat channel Nihonggo Mantappu.</p>\r\n\r\n<p>Yuk, naik roller coaster di kehidupanku yang penuh dengan kalkukasi matematika.</p>\r\n\r\n<p>It may not gonna be super fun, but I promise it would worth the ride.</p>\r\n\r\n<p>Minasan, let&rsquo;s go, MANTAPPU JIWA!</p>\r\n', '646783.jpg', '618443.pdf');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_transaksi`
+-- Struktur dari tabel `data_transaksi`
 --
 
 CREATE TABLE `data_transaksi` (
@@ -93,17 +91,16 @@ CREATE TABLE `data_transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `data_transaksi`
+-- Dumping data untuk tabel `data_transaksi`
 --
 
 INSERT INTO `data_transaksi` (`id`, `id_sk`, `id_buku`, `id_anggota`, `tgl_pinjam`, `tgl_kembali`, `status`) VALUES
-(85, 'S002', 'SOL1', 'A005', '2021-01-09', '2021-01-16', 'PIN'),
-(108, 'S003', 'SOL1', 'A004', '2021-01-09', '2021-01-16', 'PIN');
+(162, 'S001', 'FKS1', 'A004', '2021-03-08', '2021-03-15', 'PIN');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jurusan`
+-- Struktur dari tabel `jurusan`
 --
 
 CREATE TABLE `jurusan` (
@@ -112,67 +109,57 @@ CREATE TABLE `jurusan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `jurusan`
+-- Dumping data untuk tabel `jurusan`
 --
 
 INSERT INTO `jurusan` (`nama`, `nama_pdk`) VALUES
-('Instrumentasi dan Otomatisasi Proses', 'IOP'),
-('Produksi Film dan Produk Televisi', 'PFPT'),
-('Rekayasa Perangkat Lunak', 'RPL'),
-('Sistem Informatika Jaringan dan Aplikasi', 'SIJA'),
-('Teknik Elektronika Daya dan Komunikasi', 'TEDK'),
-('Teknik Elektronika Industri', 'TEI'),
-('Teknik Mekatronika', 'MEKA'),
-('Teknik Otomasi Industri', 'TOI'),
-('Teknik Pendingin dan Tata Udara', 'TPTU');
+('Sistem Informatika Jaringan dan Aplikasi', 'SIJA');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `log_akun`
+-- Struktur dari tabel `log_akun`
 --
 
 CREATE TABLE `log_akun` (
   `id_log` int(11) NOT NULL,
   `id_anggota` varchar(100) NOT NULL,
-  `tanggal_pembuatan` datetime NOT NULL
+  `tgl_pembuatan` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `log_akun`
+-- Dumping data untuk tabel `log_akun`
 --
 
-INSERT INTO `log_akun` (`id_log`, `id_anggota`, `tanggal_pembuatan`) VALUES
-(2, 'A001', '2021-01-08 12:54:47'),
-(4, 'A003', '2021-01-08 12:56:27'),
-(5, 'A004', '2021-01-08 12:57:00'),
-(6, 'A005', '2021-01-08 12:57:30'),
-(9, 'A006', '2021-01-10 07:33:30');
+INSERT INTO `log_akun` (`id_log`, `id_anggota`, `tgl_pembuatan`) VALUES
+(26, 'A001', '2021-03-08 05:19:06'),
+(27, 'A002', '2021-03-08 05:20:33'),
+(28, 'A003', '2021-03-08 05:21:36'),
+(29, 'A004', '2021-03-08 05:27:09');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `log_buku`
+-- Struktur dari tabel `log_buku`
 --
 
 CREATE TABLE `log_buku` (
   `id_log` int(11) NOT NULL,
   `id_buku` varchar(100) NOT NULL,
-  `tanggal_pembuatan` datetime NOT NULL
+  `tgl_pembuatan` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `log_buku`
+-- Dumping data untuk tabel `log_buku`
 --
 
-INSERT INTO `log_buku` (`id_log`, `id_buku`, `tanggal_pembuatan`) VALUES
-(20, 'SOL1', '2021-01-07 05:02:09'),
-(21, 'SOL2', '2021-01-10 15:41:34');
+INSERT INTO `log_buku` (`id_log`, `id_buku`, `tgl_pembuatan`) VALUES
+(43, 'FKS1', '2021-03-08 05:24:52');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `log_pinjam`
+-- Struktur dari tabel `log_pinjam`
 --
 
 CREATE TABLE `log_pinjam` (
@@ -183,17 +170,16 @@ CREATE TABLE `log_pinjam` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `log_pinjam`
+-- Dumping data untuk tabel `log_pinjam`
 --
 
 INSERT INTO `log_pinjam` (`id_log`, `id_buku`, `id_anggota`, `tgl_pinjam`) VALUES
-(33, 'SOL1', 'A005', '2021-01-09'),
-(38, 'SOL1', 'A004', '2021-01-09');
+(83, 'FKS1', 'A004', '2021-03-08');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pengumuman`
+-- Struktur dari tabel `pengumuman`
 --
 
 CREATE TABLE `pengumuman` (
@@ -202,7 +188,7 @@ CREATE TABLE `pengumuman` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `pengumuman`
+-- Dumping data untuk tabel `pengumuman`
 --
 
 INSERT INTO `pengumuman` (`id`, `keterangan`) VALUES
@@ -212,7 +198,7 @@ INSERT INTO `pengumuman` (`id`, `keterangan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `settings`
+-- Struktur dari tabel `settings`
 --
 
 CREATE TABLE `settings` (
@@ -223,36 +209,32 @@ CREATE TABLE `settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `settings`
+-- Dumping data untuk tabel `settings`
 --
 
 INSERT INTO `settings` (`id`, `kode_jenis`, `nama_jenis`, `value`) VALUES
-(1, '', '', 3000),
-(2, 'ILH', 'Ilmiah', 0),
-(3, 'NFS', 'Non-Fiksi', 0),
-(4, 'SJH', 'Sejarah', 0),
-(5, 'FKS', 'Fiksi', 0),
-(15, 'SOL', 'Sosial', NULL);
+(1, '', '', 1000),
+(51, 'FKS', 'Fiksi', NULL);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `akun`
+-- Indeks untuk tabel `akun`
 --
 ALTER TABLE `akun`
   ADD PRIMARY KEY (`email`),
   ADD UNIQUE KEY `id_anggota` (`id_anggota`);
 
 --
--- Indexes for table `data_buku`
+-- Indeks untuk tabel `data_buku`
 --
 ALTER TABLE `data_buku`
   ADD PRIMARY KEY (`id_buku`);
 
 --
--- Indexes for table `data_transaksi`
+-- Indeks untuk tabel `data_transaksi`
 --
 ALTER TABLE `data_transaksi`
   ADD PRIMARY KEY (`id`),
@@ -260,27 +242,27 @@ ALTER TABLE `data_transaksi`
   ADD KEY `id_anggota` (`id_anggota`);
 
 --
--- Indexes for table `jurusan`
+-- Indeks untuk tabel `jurusan`
 --
 ALTER TABLE `jurusan`
-  ADD PRIMARY KEY (`nama`);
+  ADD PRIMARY KEY (`nama_pdk`);
 
 --
--- Indexes for table `log_akun`
+-- Indeks untuk tabel `log_akun`
 --
 ALTER TABLE `log_akun`
   ADD PRIMARY KEY (`id_log`),
   ADD UNIQUE KEY `id_anggota` (`id_anggota`);
 
 --
--- Indexes for table `log_buku`
+-- Indeks untuk tabel `log_buku`
 --
 ALTER TABLE `log_buku`
   ADD PRIMARY KEY (`id_log`),
   ADD UNIQUE KEY `id_buku` (`id_buku`);
 
 --
--- Indexes for table `log_pinjam`
+-- Indeks untuk tabel `log_pinjam`
 --
 ALTER TABLE `log_pinjam`
   ADD PRIMARY KEY (`id_log`),
@@ -288,82 +270,82 @@ ALTER TABLE `log_pinjam`
   ADD KEY `id_anggota` (`id_anggota`);
 
 --
--- Indexes for table `pengumuman`
+-- Indeks untuk tabel `pengumuman`
 --
 ALTER TABLE `pengumuman`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `settings`
+-- Indeks untuk tabel `settings`
 --
 ALTER TABLE `settings`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `data_transaksi`
+-- AUTO_INCREMENT untuk tabel `data_transaksi`
 --
 ALTER TABLE `data_transaksi`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
 
 --
--- AUTO_INCREMENT for table `log_akun`
+-- AUTO_INCREMENT untuk tabel `log_akun`
 --
 ALTER TABLE `log_akun`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `log_buku`
---
-ALTER TABLE `log_buku`
   MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
--- AUTO_INCREMENT for table `log_pinjam`
+-- AUTO_INCREMENT untuk tabel `log_buku`
 --
-ALTER TABLE `log_pinjam`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+ALTER TABLE `log_buku`
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
--- AUTO_INCREMENT for table `pengumuman`
+-- AUTO_INCREMENT untuk tabel `log_pinjam`
+--
+ALTER TABLE `log_pinjam`
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+
+--
+-- AUTO_INCREMENT untuk tabel `pengumuman`
 --
 ALTER TABLE `pengumuman`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
--- AUTO_INCREMENT for table `settings`
+-- AUTO_INCREMENT untuk tabel `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `data_transaksi`
+-- Ketidakleluasaan untuk tabel `data_transaksi`
 --
 ALTER TABLE `data_transaksi`
   ADD CONSTRAINT `data_transaksi_ibfk_1` FOREIGN KEY (`id_buku`) REFERENCES `data_buku` (`id_buku`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `data_transaksi_ibfk_2` FOREIGN KEY (`id_anggota`) REFERENCES `akun` (`id_anggota`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `log_akun`
+-- Ketidakleluasaan untuk tabel `log_akun`
 --
 ALTER TABLE `log_akun`
   ADD CONSTRAINT `log_akun_ibfk_1` FOREIGN KEY (`id_anggota`) REFERENCES `akun` (`id_anggota`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `log_buku`
+-- Ketidakleluasaan untuk tabel `log_buku`
 --
 ALTER TABLE `log_buku`
   ADD CONSTRAINT `log_buku_ibfk_1` FOREIGN KEY (`id_buku`) REFERENCES `data_buku` (`id_buku`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `log_pinjam`
+-- Ketidakleluasaan untuk tabel `log_pinjam`
 --
 ALTER TABLE `log_pinjam`
   ADD CONSTRAINT `log_pinjam_ibfk_1` FOREIGN KEY (`id_buku`) REFERENCES `data_buku` (`id_buku`) ON DELETE CASCADE ON UPDATE CASCADE;
